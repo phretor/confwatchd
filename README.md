@@ -1,6 +1,6 @@
 <p align="center">
   <img alt="ConfWatch Logo" src="https://raw.githubusercontent.com/ConfWatch/confwatchd/master/static/img/avatar.png" height="140" />
-  <h3 align="center">ConfWatch.Ninja</h3>
+  <h3 align="center"><a href="https://confwatch.ninja/" target="_blank">https://confwatch.ninja/</a></h3>
   <p align="center">Discover hacking conferences around the world.</p>
   <p align="center">
     <a href="https://github.com/ConfWatch/confwatchd/releases/latest"><img alt="Release" src="https://img.shields.io/github/release/ConfWatch/confwatchd.svg?style=flat-square"></a>
@@ -12,7 +12,7 @@
 
 ---
 
-This repository contains the server source code for the [ConfWatch project](http://confwatch.ninja/).
+This repository contains the server source code for the ConfWatch project.
 
 **VERY WORK IN PROGRESS, MUCH INCOMPLETE, DON'T USE**
 
