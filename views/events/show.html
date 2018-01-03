@@ -1,0 +1,31 @@
+{{ define "content" }}
+{{ with .Event }}
+
+<h1>
+  <a href="/events/">~</a> / {{ .Title }}
+</h1>
+<p>
+  {{ .Description }}
+</p>
+
+<br/>
+<a href="{{ .Website }}" target="_blank">{{ .Website }}</a>
+{{end}}
+
+<br/>
+<br/>
+{{ if .Present }}
+  <h2>Happening Now!</h2>  
+  {{ .Present }}
+{{ end }}
+
+<h3>Past</h3>
+{{ range $i, $e := .Past }}
+  <a href="/events/{{ $.Event.Slug }}/editions/{{ $e.Slug }}/">{{ $e.Title }}</a><br/>
+{{ end }}
+
+<br/>
+<br/>
+<h3>Future</h3>
+{{ .Future }}
+{{ end }}

@@ -1,0 +1,5 @@
+{{ define "content" }}
+  {{ range $i, $e := .Events }}
+    <a href="/events/{{ $e.Slug }}/">{{ $e.Title }}</a><br/>
+  {{ end }}
+{{ end }}

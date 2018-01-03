@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {{ with .SEO }}
+      <title>{{ .Title }}</title>
+      <meta name="description" content="{{ .Description }}">
+      <meta name="keywords" content="{{ .Keywords }}">
+    {{ end }}
+
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/grayscale.min.css" rel="stylesheet">
+
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
+
+    <link rel="icon" href="/img/favicon.ico">
+
+  </head>
+
+  <body id="page-top">
+
+    <div class="container">
+      <br/>
+      {{ template "content" . }}
+    </div>   
+
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111748319-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-111748319-1');
+    </script>
+
+  </body>
+
+</html>

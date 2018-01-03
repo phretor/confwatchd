@@ -1,0 +1,42 @@
+{{ define "content" }}
+
+<h1>
+  <a href="/events/">~</a> / 
+  <a href="/events/{{ .Event.Slug }}/">{{ .Event.Title }}</a> / 
+  {{ .Edition.Title }}
+</h1>
+
+{{ range $i, $t := .Tags }}
+  <a href="#">#{{ $t }}</a> 
+{{ end }}
+
+<br>
+
+{{ with .Edition }}
+<strong>Starts</strong> {{ .Starts }}<br>
+<strong>Ends</strong> {{ .Ends }}<br>
+
+<br><br>
+
+<p>
+  {{ .Description }}
+</p>
+
+<br/>
+
+{{ .Country }}, {{ .City }}, {{ .Address }}
+<iframe
+  width="100%"
+  height="450"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCY1ZMAXsh11RVoMCAl6IlauNDkCdDwwxA&q={{ .Country }},{{ .City }},{{ .Address }}" allowfullscreen>
+</iframe>
+
+{{ end }}
+
+<br/>
+<br/>
+
+<iframe src="https://twitter.com/search?l=&q={{ .SocialStream }}&src=typd" width="100%"></iframe>
+
+{{ end }}
