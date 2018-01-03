@@ -26,11 +26,71 @@ func Setup(c config.DatabaseConfig) error {
 	}
 
 	db.AutoMigrate(&Event{})
+	db.AutoMigrate(&EventCategory{})
+	db.AutoMigrate(&Category{})
 	db.AutoMigrate(&Edition{})
 	db.AutoMigrate(&EditionAttribute{})
 	db.AutoMigrate(&Attribute{})
 
 	return nil
+}
+
+func seedCategories(folder string) (err error, categories []uint) {
+	log.Debugf("Importing categories from %s ...", folder)
+
+	matches, err := filepath.Glob(filepath.Join(folder, "*.json"))
+	if err != nil {
+		return
+	}
+
+	tx := db.Begin()
+
+	categories = make([]uint, 0)
+
+	for _, filename := range matches {
+		var c Category
+
+		log.Debugf("Loading %s ...", filename)
+
+		err, c = CategoryFromFile(filename)
+		if err != nil {
+			tx.Rollback()
+			return
+		}
+
+		var existing Category
+		err, existing = CategoryBySlug(c.Slug)
+		if err == nil {
+			if existing.Equals(c) == false {
+				log.Infof("Updating category %s.", log.Bold(c.Slug))
+
+				existing.UpdateFrom(c)
+
+				err = tx.Save(&existing).Error
+				if err != nil {
+					tx.Rollback()
+					return
+				}
+			} else {
+				log.Debugf("Category %s already exists.", c.Slug)
+			}
+
+			categories = append(categories, existing.ID)
+		} else {
+			log.Infof("Creating category %s.", log.Bold(c.Slug))
+
+			err = tx.Create(&c).Error
+			if err != nil {
+				tx.Rollback()
+				return
+			}
+
+			categories = append(categories, c.ID)
+		}
+	}
+
+	err = tx.Commit().Error
+	return
 }
 
 func seedAttributes(folder string) (err error, attributes []uint) {
@@ -242,6 +302,39 @@ func seedEvents(folder string) (err error, events []uint) {
 			events = append(events, event.ID)
 		}
 
+		categories := make([]uint, 0)
+
+		for _, catName := range event.MetaCategories {
+			var c Category
+			err, c = CategoryBySlug(catName)
+			if err != nil {
+				log.Errorf("Category %s not found.", log.Bold(catName))
+				return
+			}
+
+			if pevent.HasCategory(c) == false {
+				log.Infof("Adding category %s to %s", log.Bold(catName), log.Bold(pevent.Slug))
+				err = pevent.AddCategory(tx, c)
+				if err != nil {
+					return
+				}
+			}
+
+			categories = append(categories, c.ID)
+		}
+
+		var ecToPrune []EventCategory
+		err = db.Where("event_id = ?", pevent.ID).Not("category_id", categories).Find(&ecToPrune).Error
+		if err != nil {
+			tx.Rollback()
+			return
+		}
+
+		for _, ec := range ecToPrune {
+			log.Infof("Unsetting category %d from event %s.", ec.CategoryID, log.Bold(event.Slug))
+			tx.Where("event_id = ?", ec.EventID).Where("category_id = ?", ec.CategoryID).Delete(&ec)
+		}
+
 		editionsFolder := filepath.Join(folder, event.Slug, "editions")
 
 		err = seedEditions(tx, editionsFolder, pevent, &editions)
@@ -273,6 +366,7 @@ func Seed(folder string) (err error) {
 		return err
 	}
 
+	catsFolder := path.Join(folder, "categories")
 	attrsFolder := path.Join(folder, "attributes")
 	eventsFolder := path.Join(folder, "events")
 
@@ -280,6 +374,24 @@ func Seed(folder string) (err error) {
 		return fmt.Errorf("Folder %s does not exist.", attrsFolder)
 	} else if utils.IsFolder(eventsFolder) == false {
 		return fmt.Errorf("Folder %s does not exist.", eventsFolder)
+	} else if utils.IsFolder(catsFolder) == false {
+		return fmt.Errorf("Folder %s does not exist.", catsFolder)
+	}
+
+	err, categories := seedCategories(catsFolder)
+	if err != nil {
+		return
+	}
+
+	var catsToPrune []Category
+	err = db.Not("id", categories).Find(&catsToPrune).Error
+	if err != nil {
+		return
+	}
+
+	for _, c := range catsToPrune {
+		log.Infof("Deleting category %s.", log.Bold(c.Slug))
+		db.Delete(&c)
 	}
 
 	err, attributes := seedAttributes(attrsFolder)

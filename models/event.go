@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"github.com/jinzhu/gorm"
 	"io/ioutil"
 	"time"
 )
@@ -12,6 +13,9 @@ type Event struct {
 	Website      string   `json:"website"`
 	MetaEditions []string `json:"editions" gorm:"-"`
 	Editions     []Edition
+
+	Categories     []Category `gorm:"many2many:event_categories;"`
+	MetaCategories []string   `json:"categories" gorm:"-"`
 }
 
 func Events() (events []Event) {
@@ -59,6 +63,21 @@ func (e *Event) UpdateFrom(b Event) {
 	e.Title = b.Title
 	e.Website = b.Website
 	e.Description = b.Description
+}
+
+func (e Event) HasCategory(c Category) bool {
+	var ec EventCategory
+	if err := db.Where("event_id = ?", e.ID).Where("category_id = ?", c.ID).First(&ec).Error; err != nil {
+		return false
+	}
+	return true
+}
+
+func (e Event) AddCategory(tx *gorm.DB, c Category) error {
+	return tx.Create(&EventCategory{
+		EventID:    e.ID,
+		CategoryID: c.ID,
+	}).Error
 }
 
 func (e Event) Tags() string {
