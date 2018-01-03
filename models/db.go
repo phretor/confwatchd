@@ -153,7 +153,7 @@ func seedAttributes(folder string) (err error, attributes []uint) {
 
 func seedEditions(tx *gorm.DB, folder string, event *Event, editions *[]uint) (err error) {
 	if utils.IsFolder(folder) == false {
-		return nil
+		return fmt.Errorf("Folder %s does not exist.", folder)
 	}
 
 	log.Debugf("Importing %s editions from %s ...", log.Bold(event.Slug), folder)
