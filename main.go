@@ -109,6 +109,8 @@ func main() {
 	router.Use(middlewares.Security())
 	router.Use(middlewares.ServeStatic("/", "static", "index.html"))
 
+	router.GET("/cats/:cat_name", controllers.ShowCategory)
+
 	router.GET("/events", controllers.ListEvents)
 	router.GET("/events/:event_name", controllers.ShowEvent)
 	router.GET("/events/:event_name/editions/:edition_name", controllers.ShowEdition)

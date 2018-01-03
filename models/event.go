@@ -27,6 +27,9 @@ func Events() (events []Event) {
 
 func EventBySlug(slug string) (err error, event Event) {
 	err = db.Where("slug = ?", slug).First(&event).Error
+	if err == nil {
+		err = db.Model(&event).Related(&event.Categories, "Categories").Error
+	}
 	return
 }
 

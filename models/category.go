@@ -40,3 +40,7 @@ func (c *Category) UpdateFrom(b Category) {
 func (c Category) Equals(b Category) bool {
 	return c.Title == b.Title && c.Slug == b.Slug && c.Description == b.Description
 }
+
+func (c *Category) LoadEvents(limit int) error {
+	return db.Model(c).Related(&c.Events, "Events").Limit(limit).Order("events.ends desc").Error
+}

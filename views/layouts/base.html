@@ -7,7 +7,9 @@
     {{ with .SEO }}
       <title>{{ .Title }}</title>
       <meta name="description" content="{{ .Description }}">
-      <meta name="keywords" content="{{ .Keywords }}">
+      {{ if .Keywords }}
+        <meta name="keywords" content="{{ .Keywords }}">
+      {{ end }}
     {{ end }}
 
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

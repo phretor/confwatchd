@@ -8,13 +8,15 @@ import (
 func ListEvents(c *gin.Context) {
 	events := models.Events()
 	c.HTML(200, "events/list", struct {
-		SEO    SEO
-		Events []models.Event
+		SEO       SEO
+		ListTitle string
+		Events    []models.Event
 	}{
 		SEO{
 			Title:       "confwatch / events",
 			Description: "List of events in confwatch database.",
 		},
+		"Events",
 		events,
 	})
 }
