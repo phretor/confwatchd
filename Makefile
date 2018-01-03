@@ -5,7 +5,7 @@ TARGET=confwatchd
 
 default: build
 
-build: deps fmt vet lint 
+build: deps
 	@go build $(FLAGS) -o $(TARGET) $(SRC_PATH)
 
 vet:
