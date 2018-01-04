@@ -7,6 +7,7 @@ import (
 
 func ShowHome(c *gin.Context) {
 	cats := models.Categories()
+	countries := models.Countries()
 
 	c.HTML(200, "home/index", struct {
 		SEO             SEO
@@ -15,6 +16,7 @@ func ShowHome(c *gin.Context) {
 		CountEditions   int
 		CountEvents     int
 		CountCategories int
+		CountCountries  int
 		Next            []models.Event
 	}{
 		SEO{
@@ -22,10 +24,11 @@ func ShowHome(c *gin.Context) {
 			Description: "ConfWatch homepage.",
 		},
 		cats,
-		models.Countries(),
+		countries,
 		models.CountEditions(),
 		models.CountEvents(),
 		len(cats),
+		len(countries),
 		models.NextEvents(25),
 	})
 }
