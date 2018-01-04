@@ -10,6 +10,11 @@
   <table class="table table-hover">
     <tbody>
       {{ range $i, $e := .Events }}
+      {{ if $.Country }}
+        {{ $ce := $e.CurrentEditionByCountry $.Country }}
+      {{ else }}
+        {{ $ce := $e.CurrentEdition }}
+      {{ end }}
       <tr>
         <td>
           <span class="breadcrumb-item">

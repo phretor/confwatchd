@@ -134,9 +134,18 @@ func (e Event) AddCategory(tx *gorm.DB, c Category) error {
 	}).Error
 }
 
-func (e Event) CurrentEdition() (edition Edition) {
+func (e *Event) CurrentEdition() (edition Edition) {
 	if e.currentEdition == nil {
 		db.Where("event_id = ?", e.ID).Order("strftime('%s', 'now') - ends ASC").First(&edition)
+		edition.LoadAttributes()
+		e.currentEdition = &edition
+	}
+	return *e.currentEdition
+}
+
+func (e *Event) CurrentEditionByCountry(c string) (edition Edition) {
+	if e.currentEdition == nil {
+		db.Where("event_id = ?", e.ID).Where("country = ?", c).Order("strftime('%s', 'now') - ends ASC").First(&edition)
 		edition.LoadAttributes()
 		e.currentEdition = &edition
 	}
