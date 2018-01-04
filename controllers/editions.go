@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"github.com/ConfWatch/confwatchd/config"
 	"github.com/ConfWatch/confwatchd/models"
 	"github.com/gin-gonic/gin"
 	"strings"
@@ -44,6 +45,7 @@ func ShowEdition(c *gin.Context) {
 			Title:       fmt.Sprintf("%s / %s", event.Title, edition.Title),
 			Description: edition.Description,
 			Keywords:    edition.Tags,
+			Version:     config.APP_VERSION,
 		},
 		models.Categories(),
 		models.Countries(),

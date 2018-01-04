@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/ConfWatch/confwatchd/config"
 	"github.com/ConfWatch/confwatchd/models"
 	"github.com/gin-gonic/gin"
 )
@@ -22,6 +23,7 @@ func ShowHome(c *gin.Context) {
 		SEO{
 			Title:       "Home - ConfWatch.ninja",
 			Description: "ConfWatch homepage.",
+			Version:     config.APP_VERSION,
 		},
 		cats,
 		countries,

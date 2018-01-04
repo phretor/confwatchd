@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/ConfWatch/confwatchd/config"
 	"github.com/ConfWatch/confwatchd/models"
 	"github.com/gin-gonic/gin"
 )
@@ -17,6 +18,7 @@ func ListEvents(c *gin.Context) {
 		SEO{
 			Title:       "All Events - ConfWatch.ninja",
 			Description: "List of events in confwatch database.",
+			Version:     config.APP_VERSION,
 		},
 		models.Categories(),
 		models.Countries(),
@@ -43,6 +45,7 @@ func ShowEvent(c *gin.Context) {
 				Title:       event.Title,
 				Description: event.Description,
 				Keywords:    event.Tags(),
+				Version:     config.APP_VERSION,
 			},
 			models.Categories(),
 			models.Countries(),

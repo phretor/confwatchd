@@ -126,3 +126,15 @@ div.fork-icon {
 div.fork-icon a {
     color: #3B4E60;
 }
+
+#footer {
+    color: #4E5D6C;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+}
+
+
+#footer * {
+    color: #4E5D6C;
+}

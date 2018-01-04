@@ -111,6 +111,10 @@ func main() {
 	render.TemplateFuncMap = template.FuncMap{
 		"upper": strings.ToUpper,
 		"lower": strings.ToLower,
+		"now":   time.Now,
+		"timeDiff": func(a time.Time, b time.Time) string {
+			return b.Sub(a).String()
+		},
 		"CountByCountry": func(c string) int {
 			return models.CountByCountry(c)
 		},

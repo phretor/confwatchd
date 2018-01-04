@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/ConfWatch/confwatchd/config"
 	"github.com/ConfWatch/confwatchd/models"
 	"github.com/gin-gonic/gin"
 )
@@ -9,6 +10,7 @@ type SEO struct {
 	Title       string
 	Description string
 	Keywords    string
+	Version     string
 }
 
 func defSEO() SEO {
@@ -16,6 +18,7 @@ func defSEO() SEO {
 		"confwatch",
 		"Discover hacking conferences around the world.",
 		"hacking, hacker, conference, conf",
+		config.APP_VERSION,
 	}
 }
 

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"github.com/ConfWatch/confwatchd/config"
 	"github.com/ConfWatch/confwatchd/models"
 	"github.com/gin-gonic/gin"
 	"github.com/pariz/gountries"
@@ -35,6 +36,7 @@ func ShowCountry(c *gin.Context) {
 		SEO{
 			Title:       fmt.Sprintf("Events in %s - ConfWatch.ninja", cName),
 			Description: fmt.Sprintf("List of events in %s.", cName),
+			Version:     config.APP_VERSION,
 		},
 		models.Categories(),
 		models.Countries(),

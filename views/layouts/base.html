@@ -1,3 +1,4 @@
+{{ $start := now }}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -96,6 +97,22 @@
     </div>
 
     {{ template "content" . }}
+
+    {{ $stop := now }}
+    <footer id="footer">
+      <div class="row">
+        <div class="col-lg-12">
+          <center>
+            Running <strong>v{{ .SEO.Version }}</strong>, page generated on <strong>{{ now }}</strong> in <strong>{{ timeDiff $start $stop }}</strong>.
+            <br/>
+            <strong>
+              <a href="https://github.com/confwatch">confwatch.ninja</a>
+            </strong> was made with <span style="color:red">♥</span> by
+            <a href="https://www.evilsocket.net/" target="_blank" >Simone 'evilsocket' Margaritelli</a> 
+          </center>
+        </div>
+      </div>
+    </footer>
 
     <script src="/js/bootstrap/popper.min.js"></script>
     <script src="/js/bootstrap/bootstrap.min.js"></script>
