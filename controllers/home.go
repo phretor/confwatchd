@@ -55,8 +55,12 @@ func ShowHome(c *gin.Context) {
 		}
 	}
 
-	avail_cats := cats
-	avail_countries := countries
+	avail_cats := make([]models.Category, len(cats))
+	copy(avail_cats, cats)
+
+	avail_countries := make([]string, len(countries))
+	copy(avail_countries, countries)
+
 	rsrc := rand.NewSource(time.Now().UnixNano())
 
 	for {
