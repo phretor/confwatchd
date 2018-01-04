@@ -12,6 +12,7 @@ func ListEvents(c *gin.Context) {
 		SEO        SEO
 		Categories []models.Category
 		Countries  []string
+		Country    string
 		ListTitle  string
 		Events     []models.Event
 	}{
@@ -22,6 +23,7 @@ func ListEvents(c *gin.Context) {
 		},
 		models.Categories(),
 		models.Countries(),
+		"",
 		"All Events",
 		events,
 	})
@@ -36,6 +38,7 @@ func ShowEvent(c *gin.Context) {
 			SEO        SEO
 			Categories []models.Category
 			Countries  []string
+			Country    string
 			Event      models.Event
 			Past       []models.Edition
 			Present    []models.Edition
@@ -49,6 +52,7 @@ func ShowEvent(c *gin.Context) {
 			},
 			models.Categories(),
 			models.Countries(),
+			"",
 			event,
 			event.Past(5),
 			event.Present(5),
