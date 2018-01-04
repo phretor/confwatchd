@@ -11,6 +11,12 @@
   <li class="breadcrumb-item active"><h1>{{ .Title }}</h1></li>
 </ol>
 
+<div class="fork-icon">
+  <a href="https://github.com/ConfWatch/confwatch-data/tree/master/events/{{ .Slug }}/event.json" target="_blank">
+    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+  </a>
+</div>
+
 <p class="lead">
   {{ .Description }}
 </p>

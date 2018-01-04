@@ -114,3 +114,15 @@ div.home-card .card-body {
     text-overflow: ellipsis;
     margin-bottom: 10px;
 }
+
+div.fork-icon {
+    float: right;
+    position: absolute;
+    right: 65px;
+    top: 80px;
+    font-size: 1.6rem;
+}
+
+div.fork-icon a {
+    color: #3B4E60;
+}
