@@ -25,9 +25,9 @@
         </td>
         <td>
           {{ if .Ends | isPast }}
-            Last one was from <strong>{{ .Starts | toDate }}</strong> to <strong>{{ .Ends | toDate }}</strong>.
+            Last one was from <strong>{{ .Starts | toDateLong }}</strong> to <strong>{{ .Ends | toDateLong }}</strong>.
           {{ else }} 
-            Next one will be from <strong>{{ .Starts | toDate }}</strong> to <strong>{{ .Ends | toDate }}</strong>.
+            Next one will be from <strong>{{ .Starts | toDateLong }}</strong> to <strong>{{ .Ends | toDateLong }}</strong>.
           {{ end }}
         </td>
         <td>

@@ -117,6 +117,9 @@ func main() {
 		"toDate": func(t time.Time) string {
 			return fmt.Sprintf("%02d/%02d/%d", t.Day(), t.Month(), t.Year())
 		},
+		"toDateLong": func(t time.Time) string {
+			return fmt.Sprintf("%02d %s %d", t.Day(), t.Format("Jan"), t.Year())
+		},
 		"isPast": func(t time.Time) bool {
 			return t.Before(time.Now())
 		},

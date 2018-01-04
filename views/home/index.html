@@ -10,5 +10,43 @@
     <h1>Flags and Categories Cloud</h1>
   </center>
 </div>
+<h4 class="home-header">
+  <i class="fa fa-calendar" aria-hidden="true"></i> Upcoming Schedule
+</h4>
+<div class="container">
+{{range $i, $e := .Next}}
+<div class="card text-white bg-secondary mb-3" style="max-width: 20rem; float: left; margin-right: 1rem;">
+
+  {{ with $e.CurrentEdition }}
+  <div class="card-header">
+    <a href="/events/{{ $e.Slug }}/">{{ .Title }}</a>
+  </div>
+
+  <div class="card-body">
+    <h4 class="card-title">
+      In <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:40px; margin:3px;" src="/img/flags-mini/{{ .Country | lower }}.png"/> from <strong>{{ .Starts | toDateLong }}</strong> to <strong>{{ .Ends | toDateLong }}</strong>
+    </h4>
+    <p class="card-text">{{ .Description }}</p>
+  </div>
+
+    <div class="card-footer">
+      {{ range $j, $c := $e.Categories }}
+        {{ if eq $j 0 | not }}, {{ end }}<a href="/cats/{{ $c.Slug }}">{{ $c.Title }}</a>
+      {{ end }}
+      <span style="float:right">
+        {{ range $j, $a := .Attributes }}
+          <i data-toggle="tooltip" title="{{ $a.Description }}" class="fa fa-{{ $a.Slug }}" aria-hidden="true"></i>
+        {{ end }}
+      </span>
+    </div>
+
+  {{ end }}
+</div>
+
+{{end}}
+</div>
+
+</div>
+
 {{ end }}
 

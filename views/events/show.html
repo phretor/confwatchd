@@ -3,6 +3,7 @@
 <br/>
 <br/>
 <div class="container">
+
 {{ with .Event }}
 
 <ol class="breadcrumb">
@@ -10,15 +11,15 @@
   <li class="breadcrumb-item active"><h1>{{ .Title }}</h1></li>
 </ol>
 
-{{ range $i, $c := .Categories }}
-  {{ if eq $i 0 | not }} / {{end}} <a href="/cats/{{ $c.Slug }}">{{ $c.Title }}</a> 
-{{ end }}
-<br>
-<p>
+<p class="lead">
   {{ .Description }}
 </p>
 
-<br/>
+
+{{ range $i, $c := .Categories }}
+  {{ if eq $i 0 | not }} / {{end}} <a href="/cats/{{ $c.Slug }}">{{ $c.Title }}</a> 
+{{ end }}
+-
 <a href="{{ .Website }}" target="_blank">{{ .Website }}</a>
 {{end}}
 
@@ -46,7 +47,7 @@
         <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:25px" src="/img/flags-mini/{{ .Country | lower }}.png"/>
       </td>
       <td>
-        From <strong>{{ .Starts | toDate }}</strong> to <strong>{{ .Ends | toDate }}</strong>.
+        From <strong>{{ .Starts | toDateLong }}</strong> to <strong>{{ .Ends | toDateLong }}</strong>.
       </td>
       <td>
         {{ range $k, $a := .Attributes }}
@@ -76,7 +77,7 @@
         <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:25px" src="/img/flags-mini/{{ .Country | lower }}.png"/>
       </td>
       <td>
-        From <strong>{{ .Starts | toDate }}</strong> to <strong>{{ .Ends | toDate }}</strong>.
+        From <strong>{{ .Starts | toDateLong }}</strong> to <strong>{{ .Ends | toDateLong }}</strong>.
       </td>
       <td>
         {{ range $k, $a := .Attributes }}

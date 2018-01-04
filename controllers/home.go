@@ -15,6 +15,7 @@ func ShowHome(c *gin.Context) {
 		CountEditions   int
 		CountEvents     int
 		CountCategories int
+		Next            []models.Event
 	}{
 		SEO{
 			Title:       "confwatch / home",
@@ -25,5 +26,6 @@ func ShowHome(c *gin.Context) {
 		models.CountEditions(),
 		models.CountEvents(),
 		len(cats),
+		models.NextEvents(25),
 	})
 }
