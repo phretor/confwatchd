@@ -33,4 +33,5 @@ deps:
 	@go get github.com/michelloworld/ez-gin-template
 	@go get github.com/pariz/gountries
 
-
+setcap:
+	@sudo setcap 'cap_net_bind_service=+ep' $(TARGET)
