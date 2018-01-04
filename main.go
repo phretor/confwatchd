@@ -115,7 +115,7 @@ func main() {
 			return models.CountByCountry(c)
 		},
 		"toDate": func(t time.Time) string {
-			return fmt.Sprintf("%02d/%02d/%d", t.Day(), t.Month(), t.Year())
+			return fmt.Sprintf("%02d/%02d/%d", t.Month(), t.Day(), t.Year())
 		},
 		"toDateLong": func(t time.Time) string {
 			return fmt.Sprintf("%02d %s %d", t.Day(), t.Format("Jan"), t.Year())

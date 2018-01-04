@@ -18,7 +18,7 @@ func ShowHome(c *gin.Context) {
 		Next            []models.Event
 	}{
 		SEO{
-			Title:       "confwatch / home",
+			Title:       "Home - ConfWatch.ninja",
 			Description: "ConfWatch homepage.",
 		},
 		cats,

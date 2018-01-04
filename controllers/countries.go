@@ -33,7 +33,7 @@ func ShowCountry(c *gin.Context) {
 		Events     []models.Event
 	}{
 		SEO{
-			Title:       fmt.Sprintf("confwatch / in %s", cName),
+			Title:       fmt.Sprintf("Events in %s - ConfWatch.ninja", cName),
 			Description: fmt.Sprintf("List of events in %s.", cName),
 		},
 		models.Categories(),

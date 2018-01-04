@@ -15,7 +15,7 @@ func ListEvents(c *gin.Context) {
 		Events     []models.Event
 	}{
 		SEO{
-			Title:       "confwatch / events",
+			Title:       "All Events - ConfWatch.ninja",
 			Description: "List of events in confwatch database.",
 		},
 		models.Categories(),

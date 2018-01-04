@@ -29,12 +29,12 @@ func ShowCategory(c *gin.Context) {
 		Events     []models.Event
 	}{
 		SEO{
-			Title:       fmt.Sprintf("confwatch / %s", cat.Title),
+			Title:       fmt.Sprintf("%s - ConfWatch.ninja", cat.Title),
 			Description: fmt.Sprintf("List of events in the %s category.", cat.Title),
 		},
 		models.Categories(),
 		models.Countries(),
-		cat.Title,
+		fmt.Sprintf("Events in the %s category", cat.Title),
 		cat.Events,
 	})
 }

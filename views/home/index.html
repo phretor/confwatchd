@@ -19,13 +19,13 @@
 
   {{ with $e.CurrentEdition }}
   <div class="card-header">
-    <a href="/events/{{ $e.Slug }}/">{{ .Title }}</a>
+    <a href="/events/{{ $e.Slug }}/editions/{{ .Slug }}">{{ .Title }}</a>
   </div>
 
   <div class="card-body">
-    <h4 class="card-title">
+    <p class="card-title">
       In <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:40px; margin:3px;" src="/img/flags-mini/{{ .Country | lower }}.png"/> from <strong>{{ .Starts | toDateLong }}</strong> to <strong>{{ .Ends | toDateLong }}</strong>
-    </h4>
+    </p>
     <p class="card-text">{{ .Description }}</p>
   </div>
 

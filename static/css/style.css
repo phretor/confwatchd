@@ -79,6 +79,16 @@ div.datepicker-days > table.table-condensed {
     font-weight: normal;
 }
 
+.card-header a {
+
+}
+
+.card-footer *,
+.card-footer a:hover {
+    color: #3E4D5C;
+    text-shadow: 1px 1px #4E5D6C;
+}
+
 .home-header {
     margin-top: -81px;
     background-color: black;
