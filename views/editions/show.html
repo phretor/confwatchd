@@ -32,7 +32,7 @@
           {{ end }}
         </span>
       </div>
-      <div class="card-body">
+      <div class="card-body" style="height:400px;">
         <p class="card-text">
           <div data-date-start-date="{{ .Starts | toDate }}" data-date-end-date="{{ .Ends | toDate }}" class="datepicker"></div>
         </p>
@@ -46,12 +46,12 @@
         {{ .Country }}, {{ .City }}, {{ .Address }}
       </div>
       <div class="card-body">
-        <p class="card-text">
+        <p class="card-text" style="margin: -20px;">
           <iframe
              width="100%"
-             height="450"
+             height="400"
              frameborder="0" 
-             style="border:0"
+             style="border:0; margin-bottom: -10px;"
              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCY1ZMAXsh11RVoMCAl6IlauNDkCdDwwxA&q={{ .Country }},{{ .City }},{{ .Address }}" allowfullscreen>
           </iframe>
         </p>
@@ -63,7 +63,22 @@
 
 {{ end }}
 
+<br/>
+
+<div id="disqus_thread"></div>
+<script>
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://confwatch-ninja.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+<!--
 <iframe src="https://twitter.com/search?l=&q={{ .SocialStream }}&src=typd" width="100%"></iframe>
+-->
 
 <script>
 $(function(){
