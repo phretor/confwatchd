@@ -46,10 +46,7 @@
         <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:25px" src="/img/flags-mini/{{ .Country | lower }}.png"/>
       </td>
       <td>
-        {{ .Starts }}
-      </td>
-      <td>
-        {{ .Ends }}
+        From <strong>{{ .Starts | toDate }}</strong> to <strong>{{ .Ends | toDate }}</strong>.
       </td>
       <td>
         {{ range $k, $a := .Attributes }}
@@ -79,10 +76,7 @@
         <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:25px" src="/img/flags-mini/{{ .Country | lower }}.png"/>
       </td>
       <td>
-        {{ .Starts }}
-      </td>
-      <td>
-        {{ .Ends }}
+        From <strong>{{ .Starts | toDate }}</strong> to <strong>{{ .Ends | toDate }}</strong>.
       </td>
       <td>
         {{ range $k, $a := .Attributes }}

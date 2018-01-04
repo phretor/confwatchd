@@ -65,6 +65,8 @@
                           style="width:25px" 
                           src="/img/flags-mini/{{ $c | lower }}.png"/>
 
+                        {{ $c | countryName }}
+
                         <span class="badge badge-pill badge-dark">{{ CountByCountry $c }}</span>
                       </a>
                     {{ end }}

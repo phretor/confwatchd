@@ -24,10 +24,11 @@
           <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:25px" src="/img/flags-mini/{{ .Country | lower }}.png"/>
         </td>
         <td>
-          {{ .Starts }}
-        </td>
-        <td>
-          {{ .Ends }}
+          {{ if .Ends | isPast }}
+            Last one was from <strong>{{ .Starts | toDate }}</strong> to <strong>{{ .Ends | toDate }}</strong>.
+          {{ else }} 
+            Next one will be from <strong>{{ .Starts | toDate }}</strong> to <strong>{{ .Ends | toDate }}</strong>.
+          {{ end }}
         </td>
         <td>
           {{ range $j, $a := .Attributes }}

@@ -51,7 +51,8 @@ func Countries() (countries []string) {
 }
 
 func CountByCountry(c string) (count int) {
-	db.Model(&Edition{}).Where("country = ?", c).Count(&count)
+	row := db.Raw("SELECT COUNT(DISTINCT(e.id)) AS cnt FROM events e INNER JOIN editions d on e.id = d.event_id AND d.country = ?", c).Row()
+	row.Scan(&count)
 	return
 }
 

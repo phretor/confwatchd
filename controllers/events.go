@@ -20,7 +20,7 @@ func ListEvents(c *gin.Context) {
 		},
 		models.Categories(),
 		models.Countries(),
-		"Events",
+		"All Events",
 		events,
 	})
 }

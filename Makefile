@@ -31,3 +31,6 @@ deps:
 	@go get github.com/gosimple/slug
 	@go get github.com/gin-gonic/autotls
 	@go get github.com/michelloworld/ez-gin-template
+	@go get github.com/pariz/gountries
+
+

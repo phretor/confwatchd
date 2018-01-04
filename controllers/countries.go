@@ -4,6 +4,11 @@ import (
 	"fmt"
 	"github.com/ConfWatch/confwatchd/models"
 	"github.com/gin-gonic/gin"
+	"github.com/pariz/gountries"
+)
+
+var (
+	cQuery = gountries.New()
 )
 
 func ShowCountry(c *gin.Context) {
@@ -14,6 +19,12 @@ func ShowCountry(c *gin.Context) {
 		return
 	}
 
+	cName := country
+	cData, err := cQuery.FindCountryByAlpha(country)
+	if err == nil {
+		cName = cData.Name.Common
+	}
+
 	c.HTML(200, "events/list", struct {
 		SEO        SEO
 		Categories []models.Category
@@ -22,12 +33,12 @@ func ShowCountry(c *gin.Context) {
 		Events     []models.Event
 	}{
 		SEO{
-			Title:       fmt.Sprintf("confwatch / in %s", country),
-			Description: fmt.Sprintf("List of events in the %s country.", country),
+			Title:       fmt.Sprintf("confwatch / in %s", cName),
+			Description: fmt.Sprintf("List of events in %s.", cName),
 		},
 		models.Categories(),
 		models.Countries(),
-		country,
+		fmt.Sprintf("Events in %s", cName),
 		events,
 	})
 }

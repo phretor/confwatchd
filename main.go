@@ -19,6 +19,7 @@ import (
 	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 	"github.com/michelloworld/ez-gin-template"
+	"github.com/pariz/gountries"
 )
 
 var (
@@ -29,6 +30,7 @@ var (
 	noColors   = false
 	seedFolder = ""
 	router     = (*gin.Engine)(nil)
+	cQuery     = gountries.New()
 )
 
 func init() {
@@ -114,6 +116,16 @@ func main() {
 		},
 		"toDate": func(t time.Time) string {
 			return fmt.Sprintf("%02d/%02d/%d", t.Day(), t.Month(), t.Year())
+		},
+		"isPast": func(t time.Time) bool {
+			return t.Before(time.Now())
+		},
+		"countryName": func(c string) string {
+			cData, err := cQuery.FindCountryByAlpha(c)
+			if err == nil {
+				return cData.Name.Common
+			}
+			return c
 		},
 	}
 
