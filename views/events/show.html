@@ -1,12 +1,15 @@
 {{ define "content" }}
+<br/>
+<br/>
+<br/>
+<div class="container">
 {{ with .Event }}
 
 <h1>
-  <a href="/events/">~</a> / {{ .Title }}
+  <a href="/">~</a> / {{ .Title }}
 </h1>
-<strong>Categories</strong>
 {{ range $i, $c := .Categories }}
-  <a href="/cats/{{ $c.Slug }}">{{ $c.Title }}</a>
+  {{ if eq $i 0 | not }} / {{end}} <a href="/cats/{{ $c.Slug }}">{{ $c.Title }}</a> 
 {{ end }}
 <br>
 <p>
@@ -33,4 +36,6 @@
 <br/>
 <h3>Future</h3>
 {{ .Future }}
+
+</div>
 {{ end }}

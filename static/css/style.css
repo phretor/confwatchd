@@ -1,0 +1,52 @@
+div.header {
+    background-image: url(/img/intro-bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+    width: 100%;
+}
+
+div.nav-left {
+    position: relative;
+    right: 50%;
+    margin: 0 auto;
+    margin-right: 40px;
+}
+
+div.nav-right {
+    position: absolute;
+    left: 50%;
+    margin: 0 auto;
+    margin-left: 60px;
+}
+
+div.nav-center {
+    position: absolute;
+    left: 50%;
+    margin: 5px 0px 0px -32.5px;
+}
+
+img.nav-logo {
+    width: 65px;
+}
+
+.fa-invite-only::before {
+    font-family: FontAwesome;
+    content: "\f023";
+}
+
+.fa-code-of-conduct::before {
+    font-family: FontAwesome;
+    content: "\f02d";
+}
+
+.fa-kids-friendly::before {
+    font-family: FontAwesome;
+    content: "\f118";
+}
+
+.fa-pets-friendly::before {
+    font-family: FontAwesome;
+    content: "\f1b0";
+}

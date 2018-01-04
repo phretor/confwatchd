@@ -12,26 +12,58 @@
       {{ end }}
     {{ end }}
 
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/grayscale.min.css" rel="stylesheet">
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="/css/font-awesome/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 
-    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
-
-    <link rel="icon" href="/img/favicon.ico">
+    <link rel="icon" href="/img/favicon.png">
 
   </head>
 
-  <body id="page-top">
+  <body>
 
-    <div class="container">
-      <br/>
-      {{ template "content" . }}
-    </div>   
+    <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+      <div class="container">
 
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+          <div class="nav navbar-nav nav-left">
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="categories">Categories <span class="caret"></span></a>
+                  <div class="dropdown-menu" aria-labelledby="categories">
+                    {{ range $i, $c := .Categories }}
+                      <a class="dropdown-item" href="/cats/{{ $c.Slug }}/">{{ $c.Title }}</a>
+                    {{ end }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="nav navbar-nav nav-center">
+            <a class="nav-link nav-logo-link" href="/">
+              <img class="nav-logo" src="/img/navbar-logo.png"/> 
+            </a>
+          </div>
+
+          <div class="nav navbar-nav nav-right">
+            <a class="nav-link" href="/events/">All</a>
+          </div>
+
+      </div>
+    </div>
+
+    {{ template "content" . }}
+
+    <script src="/js/jquery/jquery.min.js"></script>
+    <script src="/js/bootstrap/popper.min.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111748319-1"></script>
     <script>

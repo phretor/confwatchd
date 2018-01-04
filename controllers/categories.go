@@ -22,14 +22,16 @@ func ShowCategory(c *gin.Context) {
 	}
 
 	c.HTML(200, "events/list", struct {
-		SEO       SEO
-		ListTitle string
-		Events    []models.Event
+		SEO        SEO
+		Categories []models.Category
+		ListTitle  string
+		Events     []models.Event
 	}{
 		SEO{
 			Title:       fmt.Sprintf("confwatch / %s", cat.Title),
 			Description: fmt.Sprintf("List of events in the %s category.", cat.Title),
 		},
+		models.Categories(),
 		fmt.Sprintf("%s category", cat.Title),
 		cat.Events,
 	})

@@ -16,6 +16,13 @@ func CategoryBySlug(slug string) (err error, c Category) {
 	return
 }
 
+func Categories() (cats []Category) {
+	if err := db.Find(&cats).Error; err != nil {
+		cats = make([]Category, 0)
+	}
+	return
+}
+
 func CategoryFromFile(filename string) (err error, c Category) {
 	var raw []byte
 	raw, err = ioutil.ReadFile(filename)
@@ -42,5 +49,16 @@ func (c Category) Equals(b Category) bool {
 }
 
 func (c *Category) LoadEvents(limit int) error {
-	return db.Model(c).Related(&c.Events, "Events").Limit(limit).Order("events.ends desc").Error
+	err := db.Model(c).Related(&c.Events, "Events").Limit(limit).Order("events.ends desc").Error
+	if err != nil {
+		return err
+	}
+
+	for i, _ := range c.Events {
+		err = c.Events[i].LoadCategories()
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }

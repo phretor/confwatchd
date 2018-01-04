@@ -1,6 +1,43 @@
 {{ define "content" }}
+<br/>
+<br/>
+<br/>
+<div class="container">
   <h1>{{ .ListTitle }}</h1>
-  {{ range $i, $e := .Events }}
-    <a href="/events/{{ $e.Slug }}/">{{ $e.Title }}</a><br/>
-  {{ end }}
+  <br/>
+
+  <table class="table table-hover">
+    <tbody>
+      {{ range $i, $e := .Events }}
+      <tr>
+        <td>
+          <a href="/events/{{ $e.Slug }}/">{{ $e.Title }}</a><br/>
+        </td>
+        <td>
+          {{ range $i, $c := .Categories }}
+            {{ if eq $i 0 | not }} / {{ end }}<a href="/cats/{{ $c.Slug }}">{{ $c.Title }}</a>
+          {{ end }}
+        </td>
+        {{ with $e.CurrentEdition }}
+        <td>
+          <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:25px" src="/img/flags-mini/{{ .Country | lower }}.png"/>
+        </td>
+        <td>
+          {{ .Starts }}
+        </td>
+        <td>
+          {{ .Ends }}
+        </td>
+        <td>
+          {{ range $j, $a := .Attributes }}
+            <i data-toggle="tooltip" title="{{ $a.Description }}" class="fa fa-{{ $a.Slug }}" aria-hidden="true"></i>
+          {{ end }}
+        </td>
+        {{ end }}
+      <tr>
+      {{ end }}
+    </tbody>
+  </table>
+
+</div>
 {{ end }}

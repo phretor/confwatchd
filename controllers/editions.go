@@ -20,6 +20,8 @@ func ShowEdition(c *gin.Context) {
 		return
 	}
 
+	edition.LoadAttributes()
+
 	tags := strings.Split(edition.Tags, ",")
 	stags := make([]string, len(tags))
 
@@ -31,6 +33,7 @@ func ShowEdition(c *gin.Context) {
 
 	c.HTML(200, "editions/show", struct {
 		SEO          SEO
+		Categories   []models.Category
 		Event        models.Event
 		Edition      models.Edition
 		Tags         []string
@@ -41,6 +44,7 @@ func ShowEdition(c *gin.Context) {
 			Description: edition.Description,
 			Keywords:    edition.Tags,
 		},
+		models.Categories(),
 		event,
 		edition,
 		tags,

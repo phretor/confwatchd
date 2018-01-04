@@ -16,19 +16,31 @@ type Event struct {
 
 	Categories     []Category `gorm:"many2many:event_categories;"`
 	MetaCategories []string   `json:"categories" gorm:"-"`
+
+	currentEdition *Edition `gorm:"-"`
 }
 
 func Events() (events []Event) {
 	if err := db.Find(&events).Error; err != nil {
 		events = make([]Event, 0)
 	}
+
+	for i, _ := range events {
+		events[i].LoadCategories()
+	}
+
+	return
+}
+
+func CountEvents() (count int) {
+	db.Model(&Event{}).Count(&count)
 	return
 }
 
 func EventBySlug(slug string) (err error, event Event) {
 	err = db.Where("slug = ?", slug).First(&event).Error
 	if err == nil {
-		err = db.Model(&event).Related(&event.Categories, "Categories").Error
+		err = event.LoadCategories()
 	}
 	return
 }
@@ -47,6 +59,10 @@ func EventFromFile(filename string) (err error, event Event) {
 
 	event.UpdateSlug()
 	return
+}
+
+func (e *Event) LoadCategories() error {
+	return db.Model(e).Related(&e.Categories, "Categories").Error
 }
 
 func (e Event) Equals(b Event) bool {
@@ -81,6 +97,15 @@ func (e Event) AddCategory(tx *gorm.DB, c Category) error {
 		EventID:    e.ID,
 		CategoryID: c.ID,
 	}).Error
+}
+
+func (e Event) CurrentEdition() (edition Edition) {
+	if e.currentEdition == nil {
+		db.Where("event_id = ?", e.ID).Order("strftime('%s', 'now') - ends ASC").First(&edition)
+		edition.LoadAttributes()
+		e.currentEdition = &edition
+	}
+	return *e.currentEdition
 }
 
 func (e Event) Tags() string {

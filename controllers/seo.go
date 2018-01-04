@@ -1,6 +1,9 @@
 package controllers
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/ConfWatch/confwatchd/models"
+	"github.com/gin-gonic/gin"
+)
 
 type SEO struct {
 	Title       string
@@ -18,10 +21,12 @@ func defSEO() SEO {
 
 func do404(c *gin.Context, message string) {
 	c.HTML(404, "misc/404", struct {
-		SEO     SEO
-		Message string
+		SEO        SEO
+		Categories []models.Category
+		Message    string
 	}{
 		defSEO(),
+		models.Categories(),
 		message,
 	})
 }

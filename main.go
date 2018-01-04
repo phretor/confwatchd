@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
+	"text/template"
 
 	"github.com/ConfWatch/confwatchd/config"
 	"github.com/ConfWatch/confwatchd/controllers"
@@ -103,11 +105,18 @@ func main() {
 	render.Ext = ".html"
 	render.Debug = config.Conf.Dev
 
+	render.TemplateFuncMap = template.FuncMap{
+		"upper": strings.ToUpper,
+		"lower": strings.ToLower,
+	}
+
 	router = gin.New()
 
 	router.HTMLRender = render.Init()
 	router.Use(middlewares.Security())
 	router.Use(middlewares.ServeStatic("/", "static", "index.html"))
+
+	router.GET("/", controllers.ShowHome)
 
 	router.GET("/cats/:cat_name", controllers.ShowCategory)
 

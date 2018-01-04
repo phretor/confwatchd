@@ -53,6 +53,11 @@ func EditionFromFile(filename string) (err error, edition Edition) {
 	return
 }
 
+func CountEditions() (count int) {
+	db.Model(&Edition{}).Count(&count)
+	return
+}
+
 func (e Edition) HasAttribute(a Attribute) bool {
 	var ea EditionAttribute
 	if err := db.Where("edition_id = ?", e.ID).Where("attribute_id = ?", a.ID).First(&ea).Error; err != nil {
@@ -66,6 +71,10 @@ func (e Edition) AddAttribute(tx *gorm.DB, a Attribute) error {
 		EditionID:   e.ID,
 		AttributeID: a.ID,
 	}).Error
+}
+
+func (e *Edition) LoadAttributes() error {
+	return db.Model(e).Related(&e.Attributes, "Attributes").Error
 }
 
 func (e Edition) Equals(b Edition) bool {

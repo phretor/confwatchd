@@ -8,14 +8,16 @@ import (
 func ListEvents(c *gin.Context) {
 	events := models.Events()
 	c.HTML(200, "events/list", struct {
-		SEO       SEO
-		ListTitle string
-		Events    []models.Event
+		SEO        SEO
+		Categories []models.Category
+		ListTitle  string
+		Events     []models.Event
 	}{
 		SEO{
 			Title:       "confwatch / events",
 			Description: "List of events in confwatch database.",
 		},
+		models.Categories(),
 		"Events",
 		events,
 	})
@@ -27,17 +29,19 @@ func ShowEvent(c *gin.Context) {
 		do404(c, "Event not found.")
 	} else {
 		c.HTML(200, "events/show", struct {
-			SEO     SEO
-			Event   models.Event
-			Past    []models.Edition
-			Present []models.Edition
-			Future  []models.Edition
+			SEO        SEO
+			Categories []models.Category
+			Event      models.Event
+			Past       []models.Edition
+			Present    []models.Edition
+			Future     []models.Edition
 		}{
 			SEO{
 				Title:       event.Title,
 				Description: event.Description,
 				Keywords:    event.Tags(),
 			},
+			models.Categories(),
 			event,
 			event.Past(5),
 			event.Present(5),
