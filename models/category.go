@@ -10,6 +10,8 @@ type Category struct {
 	Slugable
 	Description string  `json:"description" gorm:"not null;type:text"`
 	Events      []Event `gorm:"many2many:event_categories;"`
+
+	NumEvents *int `json:"-" gorm:"-"`
 }
 
 func CategoryBySlug(slug string) (err error, c Category) {
@@ -54,9 +56,13 @@ func (c Category) Equals(b Category) bool {
 	return c.Title == b.Title && c.Slug == b.Slug && c.Description == b.Description
 }
 
-func (c Category) CountEvents() (count int) {
-	db.Model(EventCategory{}).Where("category_id = ?", c.ID).Count(&count)
-	return
+func (c *Category) CountEvents() (count int) {
+	if c.NumEvents == nil {
+		var count int
+		db.Model(EventCategory{}).Where("category_id = ?", c.ID).Count(&count)
+		c.NumEvents = &count
+	}
+	return *c.NumEvents
 }
 
 func (c *Category) LoadEvents(limit int) error {

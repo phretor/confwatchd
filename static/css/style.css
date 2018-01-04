@@ -127,6 +127,19 @@ div.fork-icon a {
     color: #3B4E60;
 }
 
+div.cloud {
+    width: 55%;
+    margin-top: -30px;
+}
+
+p.home-stats {
+    margin-top: 50px;
+}
+
+a.tag {
+    color: white;
+}
+
 #footer {
     color: #4E5D6C;
     margin-top: 100px;
@@ -138,3 +151,4 @@ div.fork-icon a {
 #footer * {
     color: #4E5D6C;
 }
+

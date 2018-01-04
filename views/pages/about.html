@@ -1,0 +1,45 @@
+{{ define "content" }}
+<br/>
+<br/>
+<br/>
+<div class="container">
+  <h1>About</h1>
+  <p class="lead">
+  ConfWatch.ninja is a community effort started at the beginning of 2018 by a few volunteers who met and talked about the idea at <a href="/events/ccc/editions/34c3">#34c3</a>. The project is composed by <a href="https://github.com/ConfWatch/confwatchd" target="_blank">the web application</a> and the <a href="https://github.com/ConfWatch/confwatch-data" target="_blank">data repository</a> containing community maintained JSON files with information about the major events world wide.
+  </p>
+
+  <p class="lead">
+  The main goal of the project is to provide the most important bits of information about conferences and events worldwide, including which facilities they have, if they're kids friendly, if they have a code of conduct, if they have open data about submissions, an open review process and so on. The founders of the project believe geeks are smart enough to figure out themselves if a conference is ok or not once open and clear data is provided them.
+  </p>
+
+  <p class="lead">Decide for yourself, without the politics and the drama.</p>
+
+  <h4>Contribute</h4>
+  <p class="lead">
+  You can contribute by forking <a href="https://github.com/ConfWatch/confwatch-data" target="_blank">the conf-data repository</a> and adding / fixing attributes, categories, events or editions. For further contributing guidelines check the <a href="https://github.com/ConfWatch/confwatch-data#contributing" target="_blank">contributing section</a> of the repository's README file.
+  </p>
+
+  <h4>Misc</h4>
+  <p class="lead">
+    This website is currently running version <strong>{{ .SEO.Version }}</strong> of the server software, while the database is made of <strong>{{ .CountEditions }}</strong> editions of <strong>{{ .CountEvents }}</strong> different events accross <strong>{{ .CountCountries }}</strong> countries, organized in <strong>{{ .CountCategories }}</strong> categories.
+  </p>
+
+  <ul style="list-style-type:none; margin:0; padding:0">
+    <li>
+      <a href="https://twitter.com/confwatchninja" target="_blank">
+        <i class="fa fa-twitter" aria-hidden="true"></i> ConfNinja Twitter's Profile
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/ConfWatch" target="_blank">
+        <i class="fa fa-github" aria-hidden="true"></i> Project Source Code
+      </a>
+    </li>
+  </ul>
+
+  <br/><br/>
+  <center>
+    <img src="/img/avatar.png" style="width:300px"/>
+  </center>
+</div>
+{{ end }}

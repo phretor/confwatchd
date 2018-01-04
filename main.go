@@ -144,6 +144,8 @@ func main() {
 
 	router.GET("/", controllers.ShowHome)
 
+	router.GET("/pages/about", controllers.AboutPage)
+
 	router.GET("/cats/:cat_name", controllers.ShowCategory)
 	router.GET("/c/:country_name", controllers.ShowCountry)
 
