@@ -14,10 +14,10 @@ func Security() gin.HandlerFunc {
 
 	if config.Conf.Dev {
 		rules = secure.New(secure.Options{
-			FrameDeny:          true,
-			ContentTypeNosniff: true,
-			BrowserXssFilter:   true,
-			ReferrerPolicy:     "same-origin",
+			FrameDeny: true,
+			// ContentTypeNosniff: true,
+			// BrowserXssFilter:   true,
+			// ReferrerPolicy:     "same-origin",
 		})
 	} else {
 		rules = secure.New(secure.Options{
