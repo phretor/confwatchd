@@ -12,7 +12,12 @@
       {{ range $i, $e := .Events }}
       <tr>
         <td>
-          <a href="/events/{{ $e.Slug }}/editions/{{ $e.CurrentEdition.Slug }}">{{ $e.CurrentEdition.Title }}</a><br/>
+          <span class="breadcrumb-item">
+            <a href="/events/{{ $e.Slug }}/">{{ $e.Title }}</a>
+          </span>
+          <span class="breadcrumb-item">
+            <a href="/events/{{ $e.Slug }}/editions/{{ $e.CurrentEdition.Slug }}">{{ $e.CurrentEdition.Title }}</a>
+          </span>
         </td>
         <td>
           {{ range $i, $c := .Categories }}
