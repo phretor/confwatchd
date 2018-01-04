@@ -12,7 +12,6 @@
 </ol>
 
 <div class="fork-icon">
-  <div class="addthis_sharing_toolbox"></div>
   <a href="https://github.com/ConfWatch/confwatch-data/tree/master/events/{{ .Slug }}/event.json" target="_blank">
     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
   </a>
@@ -22,7 +21,7 @@
   {{ .Description }}
 </p>
 
-
+<div class="addthis_sharing_toolbox"></div>
 {{ range $i, $c := .Categories }}
   {{ if eq $i 0 | not }} / {{end}} <a href="/cats/{{ $c.Slug }}">{{ $c.Title }}</a> 
 {{ end }}
