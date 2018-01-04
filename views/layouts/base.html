@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/img/favicon.png?v=3">
 
     {{ with .SEO }}
       <title>{{ .Title }}</title>
@@ -13,11 +14,11 @@
     {{ end }}
 
     <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="/css/bootstrap/datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
     <link href="/css/font-awesome/font-awesome.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
 
-    <link rel="icon" href="/img/favicon.png">
-
+    <script src="/js/jquery/jquery.min.js"></script>
   </head>
 
   <body>
@@ -33,7 +34,10 @@
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="categories">Categories <span class="caret"></span></a>
                   <div class="dropdown-menu" aria-labelledby="categories">
                     {{ range $i, $c := .Categories }}
-                      <a class="dropdown-item" href="/cats/{{ $c.Slug }}/">{{ $c.Title }}</a>
+                      <a class="dropdown-item" href="/cats/{{ $c.Slug }}/">
+                        {{ $c.Title }}
+                        <span class="badge badge-pill badge-dark">{{ $c.CountEvents }}</span>
+                      </a>
                     {{ end }}
                   </div>
                 </li>
@@ -48,6 +52,27 @@
           </div>
 
           <div class="nav navbar-nav nav-right">
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="countries">Countries <span class="caret"></span></a>
+                  <div class="dropdown-menu" aria-labelledby="countries">
+                    {{ range $i, $c := .Countries }}
+                      <a class="dropdown-item" href="/c/{{ $c }}/">
+                        <img 
+                          data-toggle="tooltip" 
+                          title="{{ $c }}" 
+                          style="width:25px" 
+                          src="/img/flags-mini/{{ $c | lower }}.png"/>
+
+                        <span class="badge badge-pill badge-dark">{{ CountByCountry $c }}</span>
+                      </a>
+                    {{ end }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+
             <a class="nav-link" href="/events/">All</a>
           </div>
 
@@ -56,9 +81,9 @@
 
     {{ template "content" . }}
 
-    <script src="/js/jquery/jquery.min.js"></script>
     <script src="/js/bootstrap/popper.min.js"></script>
     <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <script src="/css/bootstrap/datepicker/js/bootstrap-datepicker.min.js"></script>
     <script>
       $(function () {
         $('[data-toggle="tooltip"]').tooltip();

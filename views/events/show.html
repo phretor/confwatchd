@@ -5,9 +5,11 @@
 <div class="container">
 {{ with .Event }}
 
-<h1>
-  <a href="/">~</a> / {{ .Title }}
-</h1>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/">~</a></li>
+  <li class="breadcrumb-item active"><h1>{{ .Title }}</h1></li>
+</ol>
+
 {{ range $i, $c := .Categories }}
   {{ if eq $i 0 | not }} / {{end}} <a href="/cats/{{ $c.Slug }}">{{ $c.Title }}</a> 
 {{ end }}
@@ -22,20 +24,77 @@
 
 <br/>
 <br/>
+
 {{ if .Present }}
   <h2>Happening Now!</h2>  
-  {{ .Present }}
+  {{ range $i, $e := .Present }}
+    <a href="/events/{{ $.Event.Slug }}/editions/{{ $e.Slug }}/">{{ $e.Title }}</a><br/>
+  {{ end }}
 {{ end }}
 
-<h3>Past</h3>
-{{ range $i, $e := .Past }}
-  <a href="/events/{{ $.Event.Slug }}/editions/{{ $e.Slug }}/">{{ $e.Title }}</a><br/>
-{{ end }}
-
-<br/>
-<br/>
+{{ if .Future }}
 <h3>Future</h3>
-{{ .Future }}
+<table class="table table-hover">
+  <tbody>
+    {{ range $i, $e := .Future }}
+    {{ with $e }}
+    <tr>
+      <td>
+        <a href="/events/{{ $.Event.Slug }}/editions/{{ .Slug }}/">{{ .Title }}</a><br/>
+      </td>
+      <td>
+        <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:25px" src="/img/flags-mini/{{ .Country | lower }}.png"/>
+      </td>
+      <td>
+        {{ .Starts }}
+      </td>
+      <td>
+        {{ .Ends }}
+      </td>
+      <td>
+        {{ range $k, $a := .Attributes }}
+          <i data-toggle="tooltip" title="{{ $a.Description }}" class="fa fa-{{ $a.Slug }}" aria-hidden="true"></i>
+        {{ end }}
+      </td>
+    <tr>
+    {{ end }}
+    {{ end }}
+  </tbody>
+</table>
+{{ end }}
+
+<br/>
+
+{{ if .Past }}
+<h3>Past</h3>
+<table class="table table-hover">
+  <tbody>
+    {{ range $i, $e := .Past }}
+    {{ with $e }}
+    <tr>
+      <td>
+        <a href="/events/{{ $.Event.Slug }}/editions/{{ .Slug }}/">{{ .Title }}</a><br/>
+      </td>
+      <td>
+        <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:25px" src="/img/flags-mini/{{ .Country | lower }}.png"/>
+      </td>
+      <td>
+        {{ .Starts }}
+      </td>
+      <td>
+        {{ .Ends }}
+      </td>
+      <td>
+        {{ range $k, $a := .Attributes }}
+          <i data-toggle="tooltip" title="{{ $a.Description }}" class="fa fa-{{ $a.Slug }}" aria-hidden="true"></i>
+        {{ end }}
+      </td>
+    <tr>
+    {{ end }}
+    {{ end }}
+  </tbody>
+</table>
+{{ end }}
 
 </div>
 {{ end }}

@@ -18,7 +18,7 @@ div.nav-right {
     position: absolute;
     left: 50%;
     margin: 0 auto;
-    margin-left: 60px;
+    margin-left: 55px;
 }
 
 div.nav-center {
@@ -49,4 +49,32 @@ img.nav-logo {
 .fa-pets-friendly::before {
     font-family: FontAwesome;
     content: "\f1b0";
+}
+
+li.breadcrumb-item h1 {
+    margin: 0;
+    padding: 0;
+    font-size: initial;
+    line-height: initial;
+    display: inline;
+}
+
+div.datepicker {
+    width: 100% !important;
+    background-color: #4E5D6C;
+}
+
+div.datepicker-days > table.table-condensed {
+    width: 100% !important;
+}
+
+.datepicker table tr td {
+    background-color:#8d9dad;
+    border-radius: 0px;
+    font-weight: bold;
+}
+
+.datepicker table tr td.old {
+    background-color:transparent;
+    font-weight: normal;
 }

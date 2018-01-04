@@ -34,6 +34,7 @@ func ShowEdition(c *gin.Context) {
 	c.HTML(200, "editions/show", struct {
 		SEO          SEO
 		Categories   []models.Category
+		Countries    []string
 		Event        models.Event
 		Edition      models.Edition
 		Tags         []string
@@ -45,6 +46,7 @@ func ShowEdition(c *gin.Context) {
 			Keywords:    edition.Tags,
 		},
 		models.Categories(),
+		models.Countries(),
 		event,
 		edition,
 		tags,

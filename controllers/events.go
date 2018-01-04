@@ -10,6 +10,7 @@ func ListEvents(c *gin.Context) {
 	c.HTML(200, "events/list", struct {
 		SEO        SEO
 		Categories []models.Category
+		Countries  []string
 		ListTitle  string
 		Events     []models.Event
 	}{
@@ -18,6 +19,7 @@ func ListEvents(c *gin.Context) {
 			Description: "List of events in confwatch database.",
 		},
 		models.Categories(),
+		models.Countries(),
 		"Events",
 		events,
 	})
@@ -31,6 +33,7 @@ func ShowEvent(c *gin.Context) {
 		c.HTML(200, "events/show", struct {
 			SEO        SEO
 			Categories []models.Category
+			Countries  []string
 			Event      models.Event
 			Past       []models.Edition
 			Present    []models.Edition
@@ -42,6 +45,7 @@ func ShowEvent(c *gin.Context) {
 				Keywords:    event.Tags(),
 			},
 			models.Categories(),
+			models.Countries(),
 			event,
 			event.Past(5),
 			event.Present(5),

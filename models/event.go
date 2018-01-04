@@ -37,6 +37,23 @@ func CountEvents() (count int) {
 	return
 }
 
+func EventsByCountry(c string, limit int) (events []Event, err error) {
+	rows, err := db.Raw("SELECT e.* FROM events e INNER JOIN editions d on e.id = d.event_id AND d.country = ? GROUP BY e.id", c).Rows()
+	if err != nil {
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var event Event
+		db.ScanRows(rows, &event)
+		event.LoadCategories()
+		events = append(events, event)
+	}
+
+	return
+}
+
 func EventBySlug(slug string) (err error, event Event) {
 	err = db.Where("slug = ?", slug).First(&event).Error
 	if err == nil {
@@ -122,7 +139,7 @@ func (e *Event) EditionBySlug(slug string) (err error, edition Edition) {
 }
 
 func (e *Event) Past(limit int) (past []Edition) {
-	db.Where("event_id = ?", e.ID).Where("ends < ?", time.Now()).Order("ends asc").Find(&past).Limit(limit)
+	db.Where("event_id = ?", e.ID).Where("ends < ?", time.Now()).Order("starts desc").Find(&past).Limit(limit)
 	return
 }
 

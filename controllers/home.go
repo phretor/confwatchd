@@ -11,6 +11,7 @@ func ShowHome(c *gin.Context) {
 	c.HTML(200, "home/index", struct {
 		SEO             SEO
 		Categories      []models.Category
+		Countries       []string
 		CountEditions   int
 		CountEvents     int
 		CountCategories int
@@ -20,6 +21,7 @@ func ShowHome(c *gin.Context) {
 			Description: "ConfWatch homepage.",
 		},
 		cats,
+		models.Countries(),
 		models.CountEditions(),
 		models.CountEvents(),
 		len(cats),

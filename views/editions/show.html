@@ -4,43 +4,51 @@
 <br/>
 <div class="container">
 
-<h1>
-  <a href="/">~</a> / 
-  <a href="/events/{{ .Event.Slug }}/">{{ .Event.Title }}</a> / 
-  {{ .Edition.Title }}
-</h1>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/">~</a></li>
+  <li class="breadcrumb-item"><a href="/events/{{ .Event.Slug }}/">{{ .Event.Title }}</a></li>
+  <li class="breadcrumb-item active"><h1>{{ .Edition.Title }}</h1></li>
+</ol>
 
 {{ with .Edition }}
-<strong>Starts</strong> {{ .Starts }}<br>
-<strong>Ends</strong> {{ .Ends }}<br>
-<br>
-<strong>Attributes</strong> 
-{{ range $j, $a := .Attributes }}
-  <i  data-toggle="tooltip" title="{{ $a.Description }}" class="fa fa-{{ $a.Slug }}" aria-hidden="true"></i>
-{{ end }}
-
-<br><br>
 
 <p>
   {{ .Description }}
 </p>
 
-<br/>
+<hr/>
 
-{{ .Country }}, {{ .City }}, {{ .Address }}
-<iframe
-  width="100%"
-  height="450"
-  frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCY1ZMAXsh11RVoMCAl6IlauNDkCdDwwxA&q={{ .Country }},{{ .City }},{{ .Address }}" allowfullscreen>
-</iframe>
+<div class="row">
+  <div class="col col-6">
+    From <strong>{{ .Starts | toDate }}</strong> to <strong>{{ .Ends | toDate }}</strong>.
+
+    <span style="float:right">
+      {{ range $j, $a := .Attributes }}
+        <i  data-toggle="tooltip" title="{{ $a.Description }}" class="fa fa-{{ $a.Slug }}" aria-hidden="true"></i>
+      {{ end }}
+    </span>
+
+    <div data-date-start-date="{{ .Starts | toDate }}" data-date-end-date="{{ .Ends | toDate }}" class="datepicker"></div>
+  </div>
+  <div class="col col-6">
+    {{ .Country }}, {{ .City }}, {{ .Address }}
+    <iframe
+      width="100%"
+      height="450"
+      frameborder="0" style="border:0"
+      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCY1ZMAXsh11RVoMCAl6IlauNDkCdDwwxA&q={{ .Country }},{{ .City }},{{ .Address }}" allowfullscreen>
+    </iframe>
+  </div>
+</div>
 
 {{ end }}
 
-<br/>
-<br/>
-
 <iframe src="https://twitter.com/search?l=&q={{ .SocialStream }}&src=typd" width="100%"></iframe>
 
+<script>
+$(function(){
+  $('.datepicker').datepicker();
+});
+</script>
 </div>
 {{ end }}

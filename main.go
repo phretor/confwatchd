@@ -8,6 +8,7 @@ import (
 	"strings"
 	"syscall"
 	"text/template"
+	"time"
 
 	"github.com/ConfWatch/confwatchd/config"
 	"github.com/ConfWatch/confwatchd/controllers"
@@ -108,6 +109,12 @@ func main() {
 	render.TemplateFuncMap = template.FuncMap{
 		"upper": strings.ToUpper,
 		"lower": strings.ToLower,
+		"CountByCountry": func(c string) int {
+			return models.CountByCountry(c)
+		},
+		"toDate": func(t time.Time) string {
+			return fmt.Sprintf("%02d/%02d/%d", t.Day(), t.Month(), t.Year())
+		},
 	}
 
 	router = gin.New()
@@ -119,6 +126,7 @@ func main() {
 	router.GET("/", controllers.ShowHome)
 
 	router.GET("/cats/:cat_name", controllers.ShowCategory)
+	router.GET("/c/:country_name", controllers.ShowCountry)
 
 	router.GET("/events", controllers.ListEvents)
 	router.GET("/events/:event_name", controllers.ShowEvent)

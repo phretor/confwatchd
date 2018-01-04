@@ -37,6 +37,24 @@ type Edition struct {
 	MetaAttributes []string `json:"attributes" gorm:"-"`
 }
 
+func Countries() (countries []string) {
+	rows, _ := db.Raw("SELECT DISTINCT(country) AS country FROM editions").Rows()
+	defer rows.Close()
+
+	for rows.Next() {
+		var c string
+		rows.Scan(&c)
+		countries = append(countries, c)
+	}
+
+	return
+}
+
+func CountByCountry(c string) (count int) {
+	db.Model(&Edition{}).Where("country = ?", c).Count(&count)
+	return
+}
+
 func EditionFromFile(filename string) (err error, edition Edition) {
 	var raw []byte
 	raw, err = ioutil.ReadFile(filename)
