@@ -11,7 +11,13 @@ div.nav-left {
     position: relative;
     right: 50%;
     margin: 0 auto;
-    margin-right: 40px;
+    margin-right: -20px;
+}
+
+div.nav-center {
+    position: absolute;
+    left: 50%;
+    margin: 5px 0px 0px -32.5px;
 }
 
 div.nav-right {
@@ -21,10 +27,8 @@ div.nav-right {
     margin-left: 55px;
 }
 
-div.nav-center {
-    position: absolute;
-    left: 50%;
-    margin: 5px 0px 0px -32.5px;
+div.nav-far-right {
+    float:right;
 }
 
 img.nav-logo {
