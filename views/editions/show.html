@@ -1,4 +1,29 @@
 {{ define "content" }}
+
+{{ with .Edition }}
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Event",
+  "name" : "{{ .Title }}",
+  "description": "{{ .Description }}",
+  "url": "{{ .Website }}",
+  "startDate" : "{{ .Starts }}",
+  "endDate" : "{{ .Ends }}",
+  "location" : {
+    "@type" : "Place",
+    "name" : "{{ .Country }}, {{ .City }}, {{ .Address }}",
+    "address" : {
+      "@type" : "PostalAddress",
+      "streetAddress" : "{{ .Address }}",
+      "addressLocality" : "{{ .City }}",
+      "addressRegion" : "{{ .Country }}"
+    }
+  }
+}
+</script>
+{{ end }}
+
 <br/>
 <br/>
 <br/>
