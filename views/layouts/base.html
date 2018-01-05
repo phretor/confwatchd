@@ -98,7 +98,9 @@
       </div>
     </div>
 
-    {{ template "content" . }}
+    <div id="content">
+      {{ template "content" . }}
+    </div>
 
     {{ $stop := now }}
     <footer id="footer">
