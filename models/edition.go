@@ -37,6 +37,16 @@ type Edition struct {
 	MetaAttributes []string `json:"attributes" gorm:"-"`
 }
 
+func Editions() (editions []Edition) {
+	db.Find(&editions)
+	return
+}
+
+func LastEdition() (e Edition) {
+	db.Order("updated_at desc").First(&e)
+	return
+}
+
 func Countries() (countries []string) {
 	rows, _ := db.Raw("SELECT DISTINCT(country) AS country FROM editions").Rows()
 	defer rows.Close()
@@ -74,6 +84,11 @@ func EditionFromFile(filename string) (err error, edition Edition) {
 
 func CountEditions() (count int) {
 	db.Model(&Edition{}).Count(&count)
+	return
+}
+
+func (e Edition) Event() (ev Event) {
+	db.Model(&e).Related(&ev)
 	return
 }
 

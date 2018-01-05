@@ -21,6 +21,11 @@ type Event struct {
 	currentEdition *Edition `gorm:"-"`
 }
 
+func LastEvent() (e Event) {
+	db.Order("updated_at desc").First(&e)
+	return
+}
+
 func Events() (events []Event) {
 	rows, err := db.Raw("SELECT e.* FROM events e INNER JOIN editions d on e.id = d.event_id GROUP BY e.id ORDER BY d.starts ASC").Rows()
 	if err != nil {

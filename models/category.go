@@ -14,6 +14,11 @@ type Category struct {
 	NumEvents *int `json:"-" gorm:"-"`
 }
 
+func LastCategory() (c Category) {
+	db.Order("updated_at desc").First(&c)
+	return
+}
+
 func CategoryBySlug(slug string) (err error, c Category) {
 	err = db.Where("slug = ?", slug).First(&c).Error
 	return

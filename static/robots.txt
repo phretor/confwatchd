@@ -1,1 +1,2 @@
 User-Agent: *
+Sitemap: http://confwatch.ninja/sitemap-index.xml

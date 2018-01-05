@@ -142,6 +142,13 @@ func main() {
 	router.Use(middlewares.Security())
 	router.Use(middlewares.ServeStatic("/", "static", "index.html"))
 
+	router.GET("/sitemap-index.xml", controllers.IndexSitemap)
+	router.GET("/sitemap-categories.xml", controllers.CategorySitemap)
+	router.GET("/sitemap-countries.xml", controllers.CountrySitemap)
+	router.GET("/sitemap-events.xml", controllers.EventSitemap)
+	router.GET("/sitemap-editions.xml", controllers.EditionSitemap)
+	router.GET("/sitemap-pages.xml", controllers.PageSitemap)
+
 	router.GET("/", controllers.ShowHome)
 
 	router.GET("/pages/about", controllers.AboutPage)
