@@ -26,10 +26,12 @@
   </div>
 </h4>
 <div class="container">
+
 <div class="row">
 {{range $i, $e := .Next}}
   <div class="col-4">
-  <div class="card text-white bg-secondary ml-3 home-card">
+
+    <div class="card home-card">
     {{ with $e.CurrentEdition }}
       <div class="card-header">
         <a href="/events/{{ $e.Slug }}/editions/{{ .Slug }}">{{ .Title }}</a>
@@ -53,10 +55,12 @@
         </span>
       </div>
     {{ end }}
-  </div>
+    </div>
+
   </div>
 {{end}}
 </div>
+
 </div>
 
 </div>

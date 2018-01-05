@@ -34,12 +34,6 @@
 
 {{ with .Edition }}
 
-<div class="fork-icon">
-  <a href="https://github.com/ConfWatch/confwatch-data/tree/master/events/{{ $.Event.Slug }}/editions/{{ .Slug }}.json" target="_blank">
-    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-  </a>
-</div>
-
 <p class="lead">
   {{ $.Event.Description }}
 </p>
@@ -51,8 +45,8 @@
 
 <div class="row">
 
-  <div class="col col-6">
-    <div class="card text-white bg-secondary mb-6">
+  <div class="col-6">
+    <div class="card">
       <div class="card-header">
         From <strong>{{ .Starts | toDateLong }}</strong> to <strong>{{ .Ends | toDateLong }}</strong>.
         <span style="float:right">
@@ -69,8 +63,8 @@
     </div>
   </div>
 
-  <div class="col col-6">
-    <div class="card text-white bg-secondary mb-6">
+  <div class="col-6">
+    <div class="card">
       <div class="card-header">
         {{ .Country }}, {{ .City }}, {{ .Address }}
       </div>
@@ -91,6 +85,22 @@
 </div>
 
 {{ end }}
+
+<br/>
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Improve me!</h4>
+    <h6 class="card-subtitle mb-2 text-muted">Help us improving the information about {{ .Edition.Title }}</h6>
+    <p class="card-text">Help the this project by improving the information of this {{ .Event.Title }} event, it is as simple as 
+      <a 
+       href="https://github.com/ConfWatch/confwatch-data/tree/master/events/{{ .Event.Slug }}/editions/{{ .Edition.Slug }}.json" 
+       target="_blank"
+       data-toggle="tooltip" 
+       title="Edit {{ .Edition.Title }} on GitHub.">forking a repository</a>!
+    </p>
+  </div>
+</div>
 
 <br/>
 

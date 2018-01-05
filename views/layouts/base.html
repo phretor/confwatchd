@@ -31,26 +31,26 @@
   <body>
 
     <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-      <div class="container">
 
           <div class="nav navbar-nav nav-left">
-
-            <a class="nav-link" href="/events/">All</a>
-
-            <div class="collapse navbar-collapse" id="navbarResponsive">
+            <div class="row">
+              <div class="col-6">
+                <a class="nav-link" href="/events/">All</a>
+              </div>
+              <div class="col-6">
               <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="categories">Categories <span class="caret"></span></a>
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="categories">Categories</a>
                   <div class="dropdown-menu" aria-labelledby="categories">
                     {{ range $i, $c := .Categories }}
                       <a class="dropdown-item" href="/cats/{{ $c.Slug }}/">
-                        {{ $c.Title }}
-                        <span class="badge badge-pill badge-dark">{{ $c.CountEvents }}</span>
+                        {{ $c.Title }} <span class="badge badge-pill badge-dark">{{ $c.CountEvents }}</span>
                       </a>
                     {{ end }}
                   </div>
                 </li>
               </ul>
+              </div>
             </div>
           </div>
 
@@ -61,41 +61,35 @@
           </div>
 
           <div class="nav navbar-nav nav-right">
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-              <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="countries">Countries <span class="caret"></span></a>
-                  <div class="dropdown-menu" aria-labelledby="countries">
-                    {{ range $i, $c := .Countries }}
-                      <a class="dropdown-item" href="/c/{{ $c }}/">
-                        <img 
-                          data-toggle="tooltip" 
-                          title="{{ $c }}" 
-                          style="width:25px" 
-                          src="/img/flags-mini/{{ $c | lower }}.png"/>
+            <div class="row">
+              <div class="col-6">
+                <ul class="navbar-nav">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="countries">Countries</a>
+                    <div class="dropdown-menu" aria-labelledby="countries">
+                      {{ range $i, $c := .Countries }}
+                        <a class="dropdown-item" href="/c/{{ $c }}/">
+                          <img 
+                            data-toggle="tooltip" 
+                            title="{{ $c }}" 
+                            style="width:25px" 
+                            src="/img/flags-mini/{{ $c | lower }}.png"/>
 
-                        {{ $c | countryName }}
+                          {{ $c | countryName }}
 
-                        <span class="badge badge-pill badge-dark">{{ CountByCountry $c }}</span>
-                      </a>
-                    {{ end }}
-                  </div>
-                </li>
-              </ul>
+                          <span class="badge badge-pill badge-dark">{{ CountByCountry $c }}</span>
+                        </a>
+                      {{ end }}
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-6">
+                <a class="nav-link" href="/pages/about">About</a>
+              </div>
             </div>
-
-            <a class="nav-link" href="/pages/about">About</a>
           </div>
 
-          <div class="nav navbar-nav nav-far-right">
-            <a class="nav-link" href="https://twitter.com/confwatchninja" target="_blank">
-              <i class="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-            <a class="nav-link" href="https://github.com/ConfWatch" target="_blank">
-              <i class="fa fa-github" aria-hidden="true"></i>
-            </a>
-          </div>
-      </div>
     </div>
 
     <div id="content">

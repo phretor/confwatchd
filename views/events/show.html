@@ -8,12 +8,6 @@
   <li class="breadcrumb-item active"><h1>{{ .Title }}</h1></li>
 </ol>
 
-<div class="fork-icon">
-  <a href="https://github.com/ConfWatch/confwatch-data/tree/master/events/{{ .Slug }}/event.json" target="_blank">
-    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-  </a>
-</div>
-
 <p class="lead">
   {{ .Description }}
 </p>
@@ -24,9 +18,26 @@
 {{ end }}
 -
 <a href="{{ .Website }}" target="_blank">{{ .Website }}</a>
-{{end}}
 
 <br/>
+<br/>
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Improve me!</h4>
+    <h6 class="card-subtitle mb-2 text-muted">Help us improving the information about {{ .Title }}</h6>
+    <p class="card-text">Help the this project by improving the information of this {{ .Title }} event, it is as simple as 
+      <a 
+       href="https://github.com/ConfWatch/confwatch-data/tree/master/events/{{ .Slug }}/event.json" 
+       target="_blank"
+       data-toggle="tooltip" 
+       title="Edit {{ .Title }} on GitHub.">forking a repository</a>!
+    </p>
+  </div>
+</div>
+
+{{end}}
+
 <br/>
 
 {{ if .Present }}
