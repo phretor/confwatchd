@@ -22,12 +22,17 @@ type Event struct {
 }
 
 func Events() (events []Event) {
-	if err := db.Find(&events).Error; err != nil {
-		events = make([]Event, 0)
+	rows, err := db.Raw("SELECT e.* FROM events e INNER JOIN editions d on e.id = d.event_id GROUP BY e.id ORDER BY d.starts ASC").Rows()
+	if err != nil {
+		return
 	}
+	defer rows.Close()
 
-	for i, _ := range events {
-		events[i].LoadCategories()
+	for rows.Next() {
+		var event Event
+		db.ScanRows(rows, &event)
+		event.LoadCategories()
+		events = append(events, event)
 	}
 
 	return
@@ -162,21 +167,31 @@ func (e Event) Tags() string {
 
 func (e *Event) EditionBySlug(slug string) (err error, edition Edition) {
 	err = db.Where("event_id = ?", e.ID).Where("slug = ?", slug).First(&edition).Error
+	if err == nil {
+		edition.LoadAttributes()
+	}
 	return
 }
 
-func (e *Event) Past(limit int) (past []Edition) {
-	db.Where("event_id = ?", e.ID).Where("ends < ?", time.Now()).Order("starts desc").Find(&past).Limit(limit)
-	return
-}
-
-func (e *Event) Present(limit int) (past []Edition) {
+func (e Event) ByTime(starts string, ends string, order string, limit int) (editions []Edition) {
 	now := time.Now()
-	db.Where("event_id = ?", e.ID).Where("starts < ?", now).Where("ends > ?", now).Order("starts desc").Find(&past).Limit(limit)
+	db.Where("event_id = ?", e.ID).Where(starts, now).Where(ends, now).Order(order).Find(&editions).Limit(limit)
+	if err == nil {
+		for i, _ := range editions {
+			editions[i].LoadAttributes()
+		}
+	}
 	return
 }
 
-func (e *Event) Future(limit int) (past []Edition) {
-	db.Where("event_id = ?", e.ID).Where("starts > ?", time.Now()).Order("starts asc").Find(&past).Limit(limit)
-	return
+func (e Event) Past(limit int) (past []Edition) {
+	return e.ByTime("", "ends < ?", "starts desc", limit)
+}
+
+func (e Event) Present(limit int) (present []Edition) {
+	return e.ByTime("starts < ?", "ends > ?", "starts desc", limit)
+}
+
+func (e Event) Future(limit int) (future []Edition) {
+	return e.ByTime("starts > ?", "", "starts asc", limit)
 }
