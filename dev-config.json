@@ -1,9 +1,9 @@
 {
     "address": "127.0.0.1",
     "dev": true,
-    "port": 8081,
+    "port": 8080,
     "hosts":[
-        "dev.confwatch.ninja:8081"
+        "dev.confwatch.local:8080"
     ],
     "db": {
         "type": "sqlite3",
