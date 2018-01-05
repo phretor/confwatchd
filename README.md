@@ -14,8 +14,6 @@
 
 This repository contains the server source code for the ConfWatch project.
 
-**VERY WORK IN PROGRESS, MUCH INCOMPLETE, DON'T USE**
-
 Building
 ===
 
