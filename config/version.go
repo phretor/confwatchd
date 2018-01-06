@@ -2,5 +2,5 @@ package config
 
 const (
 	APP_NAME    = "confwatchd"
-	APP_VERSION = "1.1.1"
+	APP_VERSION = "1.1.2"
 )
