@@ -150,7 +150,7 @@ func main() {
 	router.Use(middlewares.ServeStatic("/", "static", "index.html"))
 	// make sure connection is closed after every request is routed
 	router.Use(func(c *gin.Context) {
-		c.Request.Header.Set("Connection", "close")
+		c.Writer.Header().Set("Connection", "close")
 		c.Next()
 	})
 
