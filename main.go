@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"net/http"
 	"os"
 	"os/signal"
 	"strings"
@@ -16,7 +17,6 @@ import (
 	"github.com/ConfWatch/confwatchd/middlewares"
 	"github.com/ConfWatch/confwatchd/models"
 
-	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 	"github.com/michelloworld/ez-gin-template"
 	"github.com/pariz/gountries"
@@ -178,9 +178,12 @@ func main() {
 	}
 
 	log.Infof("%s v%s is running on %s ...", config.APP_NAME, config.APP_VERSION, log.Bold(config.Conf.Hosts[0]))
-	if config.Conf.Dev {
-		log.Fatal(router.Run(address))
-	} else {
-		log.Fatal(autotls.Run(router, config.Conf.Hosts...))
+	s := &http.Server{
+		Addr:         address,
+		Handler:      router,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
 	}
+	s.SetKeepAlivesEnabled(false)
+	log.Fatal(s.ListenAndServe())
 }
