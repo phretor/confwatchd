@@ -2,7 +2,6 @@ package models
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/jinzhu/gorm"
 	"io/ioutil"
 	"time"
@@ -45,23 +44,6 @@ func Events() (events []Event) {
 
 func CountEvents() (count int) {
 	db.Model(&Event{}).Count(&count)
-	return
-}
-
-func NextEvents(limit int) (events []Event) {
-	rows, err := db.Raw("SELECT e.* FROM events e INNER JOIN editions d on e.id = d.event_id AND d.starts > ? GROUP BY e.id ORDER BY d.starts ASC LIMIT "+fmt.Sprintf("%d", limit), time.Now()).Rows()
-	if err != nil {
-		return
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		var event Event
-		db.ScanRows(rows, &event)
-		event.LoadCategories()
-		events = append(events, event)
-	}
-
 	return
 }
 

@@ -107,7 +107,7 @@ func ShowHome(c *gin.Context) {
 		CountCategories int
 		CountCountries  int
 		Cloud           []CloudElement
-		Next            []models.Event
+		Next            []models.Edition
 	}{
 		SEO{
 			Title:       "Home - ConfWatch.ninja",
@@ -121,6 +121,6 @@ func ShowHome(c *gin.Context) {
 		len(cats),
 		len(countries),
 		cloud,
-		models.NextEvents(25),
+		models.NextEditions(25),
 	})
 }

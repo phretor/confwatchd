@@ -32,9 +32,10 @@
   <div class="col-4">
 
     <div class="card home-card">
-    {{ with $e.CurrentEdition }}
+    {{ with $e }}
+      {{ $event := .Event }}
       <div class="card-header">
-        <a href="/events/{{ $e.Slug }}/editions/{{ .Slug }}">{{ .Title }}</a>
+        <a href="/events/{{ $event.Slug }}/editions/{{ .Slug }}">{{ .Title }}</a>
       </div>
 
       <div class="card-body">
@@ -45,7 +46,7 @@
       </div>
 
       <div class="card-footer">
-        {{ range $j, $c := $e.Categories }}
+        {{ range $j, $c := $event.Categories }}
           {{ if eq $j 0 | not }}, {{ end }}<a href="/cats/{{ $c.Slug }}">{{ $c.Title }}</a>
         {{ end }}
         <span style="float:right">

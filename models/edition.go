@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/jinzhu/gorm"
 	"io/ioutil"
 	"strings"
@@ -39,6 +40,23 @@ type Edition struct {
 
 func Editions() (editions []Edition) {
 	db.Find(&editions)
+	return
+}
+
+func NextEditions(limit int) (editions []Edition) {
+	rows, err := db.Raw("SELECT * FROM editions WHERE starts > DATETIME('now') ORDER BY DATETIME(starts) ASC LIMIT " + fmt.Sprintf("%d", limit)).Rows()
+	if err != nil {
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var e Edition
+		db.ScanRows(rows, &e)
+		e.LoadAttributes()
+		editions = append(editions, e)
+	}
+
 	return
 }
 
@@ -89,6 +107,7 @@ func CountEditions() (count int) {
 
 func (e Edition) Event() (ev Event) {
 	db.Model(&e).Related(&ev)
+	ev.LoadCategories()
 	return
 }
 
