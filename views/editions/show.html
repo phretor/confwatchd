@@ -42,6 +42,13 @@
 <a href="{{ .Website }}" target="_blank">{{ .Website }}</a>
 <br/>
 <br/>
+{{ if .Attributes }}
+{{ range $j, $a := .Attributes }}
+<i  data-toggle="tooltip" title="{{ $a.Description }}" class="fa fa-{{ $a.Slug }}" aria-hidden="true"></i> 
+{{ $a.Description }}<br/>
+{{ end }}
+<br/>
+{{ end }}
 
 <div class="row">
 
@@ -49,11 +56,6 @@
     <div class="card">
       <div class="card-header">
         From <strong>{{ .Starts | toDateLong }}</strong> to <strong>{{ .Ends | toDateLong }}</strong>.
-        <span style="float:right">
-          {{ range $j, $a := .Attributes }}
-          <i  data-toggle="tooltip" title="{{ $a.Description }}" class="fa fa-{{ $a.Slug }}" aria-hidden="true"></i>
-          {{ end }}
-        </span>
       </div>
       <div class="card-body" style="height:400px;">
         <p class="card-text">
