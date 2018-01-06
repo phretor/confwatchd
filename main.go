@@ -134,6 +134,13 @@ func main() {
 			}
 			return c
 		},
+		"limit": func(s string, n int) string {
+			len := len(s)
+			if len > n {
+				s = s[0:n-3] + "..."
+			}
+			return s
+		},
 	}
 
 	router = gin.New()

@@ -39,9 +39,9 @@
 
       <div class="card-body">
         <p class="card-title">
-          In <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:40px; margin:3px;" src="/img/flags-mini/{{ .Country | lower }}.png"/> from <strong>{{ .Starts | toDateLong }}</strong> to <strong>{{ .Ends | toDateLong }}</strong>
+          In <img data-toggle="tooltip" title="{{ .Country }}, {{ .City }}" style="width:30px; margin:3px;" src="/img/flags-mini/{{ .Country | lower }}.png"/> from <strong>{{ .Starts | toDateLong }}</strong> to <strong>{{ .Ends | toDateLong }}</strong>
         </p>
-        <p class="card-text">{{ .Description }}</p>
+        <p class="card-text">{{ limit .Description 150 }}</p>
       </div>
 
       <div class="card-footer">
