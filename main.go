@@ -106,7 +106,7 @@ func main() {
 	render.TemplatesDir = "views/"
 	render.Layout = "layouts/base"
 	render.Ext = ".html"
-	render.Debug = config.Conf.Dev
+	render.Debug = false
 
 	render.TemplateFuncMap = template.FuncMap{
 		"upper": strings.ToUpper,
