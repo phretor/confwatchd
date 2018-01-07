@@ -66,6 +66,16 @@ img.nav-logo {
     content: "\f1b0";
 }
 
+.fa-lodging-discount::before {
+    font-family: fontawesome;
+    content: "\f236";
+}
+
+.fa-travel-discount::before {
+    font-family: fontawesome;
+    content: "\f072";
+}
+
 li.breadcrumb-item h1 {
     margin: 0;
     padding: 0;
