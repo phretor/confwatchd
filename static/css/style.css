@@ -66,6 +66,11 @@ img.nav-logo {
     content: "\f1b0";
 }
 
+.fa-financial-aid::before {
+    font-family: FontAwesome;
+    content: "\f155";
+}
+
 .fa-lodging-discount::before {
     font-family: fontawesome;
     content: "\f236";
