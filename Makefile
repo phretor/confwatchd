@@ -32,6 +32,7 @@ deps:
 	@go get github.com/gin-gonic/autotls
 	@go get github.com/michelloworld/ez-gin-template
 	@go get github.com/pariz/gountries
+	@go get github.com/patrickmn/go-cache
 
 setcap:
 	@sudo setcap 'cap_net_bind_service=+ep' $(TARGET)

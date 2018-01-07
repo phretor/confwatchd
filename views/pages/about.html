@@ -16,6 +16,22 @@
   You can contribute by forking <a href="https://github.com/ConfWatch/confwatch-data" target="_blank">the conf-data repository</a> and adding / fixing attributes, categories, events or editions. For further contributing guidelines check the <a href="https://github.com/ConfWatch/confwatch-data#contributing" target="_blank">contributing section</a> of the repository's README file.
   </p>
 
+  <h4>The Team</h4>
+  <br/>
+  <div class="row">
+  {{ range $i, $c := .Contributors }}
+    <div class="col-2" style="margin-bottom:20px">
+      <a href="https://github.com/ConfWatch/confwatch-data/commits?author={{ $c.Login }}" target="_blank">
+        <img 
+            width="150px" 
+            src="{{ $c.AvatarURL }}" 
+            title="{{ $c.Login }} contributed {{ $c.Contributions }} times."/>
+      </a>
+    </div>
+  {{ end }}
+  </div>
+
+  <br/>
   <h4>Misc</h4>
   <p class="lead">
     This website is currently running version <strong>{{ .SEO.Version }}</strong> of the server software, while the database is made of <strong>{{ .CountEditions }}</strong> editions of <strong>{{ .CountEvents }}</strong> different events across <strong>{{ .CountCountries }}</strong> countries, organized in <strong>{{ .CountCategories }}</strong> categories.
@@ -34,9 +50,5 @@
     </li>
   </ul>
 
-  <br/><br/>
-  <center>
-    <img src="/img/avatar.png" style="width:300px"/>
-  </center>
 </div>
 {{ end }}
