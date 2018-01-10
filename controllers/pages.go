@@ -45,11 +45,11 @@ type Contributor struct {
 	Contributions     int    `json:"contributions"`
 }
 
-func getContributors() (err error, contributors []Contributor) {
-	cacheKey := "data-contributors-v1"
+func getContributors(repo string) (err error, contributors []Contributor) {
+	cacheKey := repo + "-data-contributors-v2"
 	obj, found := gitCache.Get(cacheKey)
 	if found == false {
-		url := "https://api.github.com/repos/ConfWatch/confwatch-data/contributors"
+		url := "https://api.github.com/repos/ConfWatch/" + repo + "/contributors"
 
 		log.Infof("Fetching github contributors from %s ...", url)
 
@@ -67,17 +67,19 @@ func getContributors() (err error, contributors []Contributor) {
 func AboutPage(c *gin.Context) {
 	cats := models.Categories()
 	countries := models.Countries()
-	_, contribs := getContributors()
+	_, dataContribs := getContributors("confwatch-data")
+	_, codeContribs := getContributors("confwatchd")
 
 	c.HTML(200, "pages/about", struct {
-		SEO             SEO
-		Categories      []models.Category
-		Countries       []string
-		Contributors    []Contributor
-		CountEditions   int
-		CountEvents     int
-		CountCategories int
-		CountCountries  int
+		SEO              SEO
+		Categories       []models.Category
+		Countries        []string
+		DataContributors []Contributor
+		CodeContributors []Contributor
+		CountEditions    int
+		CountEvents      int
+		CountCategories  int
+		CountCountries   int
 	}{
 		SEO{
 			Title:       "About - ConfWatch.ninja",
@@ -86,7 +88,8 @@ func AboutPage(c *gin.Context) {
 		},
 		cats,
 		countries,
-		contribs,
+		dataContribs,
+		codeContribs,
 		models.CountEditions(),
 		models.CountEvents(),
 		len(cats),
