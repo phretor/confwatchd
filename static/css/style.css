@@ -116,7 +116,6 @@ div.datepicker-days > table.table-condensed {
 .card-footer *,
 .card-footer a:hover {
     color: #3E4D5C;
-    text-shadow: 1px 1px #4E5D6C;
 }
 
 .home-header {
@@ -169,6 +168,18 @@ p.home-stats {
 
 a.tag {
     color: white;
+}
+
+div.social-icons {
+    font-size: 5rem;
+}
+
+div.social-icons a {
+    color: #3E4D5C;
+}
+
+div.social-icons a:hover {
+    text-decoration: none;
 }
 
 #footer {

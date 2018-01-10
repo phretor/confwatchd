@@ -17,7 +17,7 @@
   </p>
 
   <h4>The Team</h4>
-  <br/>
+  <p class="lead">This data is updated every fifteen minutes from GitHub, aggregating statistics from the <a href="https://github.com/ConfWatch/confwatch-data">database repository</a> and the <a href="https://github.com/ConfWatch/confwatchd" target="_blank">code repository</a> of the project.</p>
   <h5>Database Contributors</h5>
   <div class="row">
   {{ range $i, $c := .DataContributors }}
@@ -51,18 +51,14 @@
     This website is currently running version <strong>{{ .SEO.Version }}</strong> of the server software, while the database is made of <strong>{{ .CountEditions }}</strong> editions of <strong>{{ .CountEvents }}</strong> different events across <strong>{{ .CountCountries }}</strong> countries, organized in <strong>{{ .CountCategories }}</strong> categories.
   </p>
 
-  <ul style="list-style-type:none; margin:0; padding:0">
-    <li>
-      <a href="https://twitter.com/confwatchninja" target="_blank">
-        <i class="fa fa-twitter" aria-hidden="true"></i> ConfNinja Twitter's Profile
-      </a>
-    </li>
-    <li>
-      <a href="https://github.com/ConfWatch" target="_blank">
-        <i class="fa fa-github" aria-hidden="true"></i> Project Source Code
-      </a>
-    </li>
-  </ul>
+  <div class="social-icons">
+    <a href="https://twitter.com/confwatchninja" target="_blank" title="ConfWatch project Twitter profile.">
+      <i class="fa fa-twitter" aria-hidden="true"></i>
+    </a>
+    <a href="https://github.com/ConfWatch" target="_blank" title="ConfWatch project GitHub profile.">
+      <i class="fa fa-github" aria-hidden="true"></i>
+    </a>
+  </div>
 
 </div>
 {{ end }}
