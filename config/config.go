@@ -6,6 +6,14 @@ import (
 	"io/ioutil"
 )
 
+type TwitterConfig struct {
+	Enabled        bool   `json:"enabled"`
+	ConsumerKey    string `json:"consumer_key"`
+	ConsumerSecret string `json:"consumer_secret"`
+	AccessToken    string `json:"access_token"`
+	AccessSecret   string `json:"access_secret"`
+}
+
 type DatabaseConfig struct {
 	Type       string `json:"type"`
 	Connection string `json:"connection"`
@@ -17,6 +25,7 @@ type Configuration struct {
 	Port     int            `json:"port"`
 	Hosts    []string       `json:"hosts"`
 	Database DatabaseConfig `json:"db"`
+	Twitter  TwitterConfig  `json:"twitter"`
 }
 
 var Conf = Configuration{Dev: false}

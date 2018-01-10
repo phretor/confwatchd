@@ -13,6 +13,7 @@ import (
 
 	"github.com/ConfWatch/confwatchd/config"
 	"github.com/ConfWatch/confwatchd/controllers"
+	"github.com/ConfWatch/confwatchd/jobs"
 	"github.com/ConfWatch/confwatchd/log"
 	"github.com/ConfWatch/confwatchd/middlewares"
 	"github.com/ConfWatch/confwatchd/models"
@@ -175,6 +176,14 @@ func main() {
 	address := fmt.Sprintf("%s:%d", config.Conf.Address, config.Conf.Port)
 	if address[0] == ':' {
 		address = "0.0.0.0" + address
+	}
+
+	if config.Conf.Twitter.Enabled == true {
+		if err := jobs.StartTwitterBot(); err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		log.Infof("Twitter bot disabled.")
 	}
 
 	log.Infof("%s v%s is running on %s ...", config.APP_NAME, config.APP_VERSION, log.Bold(config.Conf.Hosts[0]))

@@ -8,6 +8,8 @@ import (
 	"io/ioutil"
 	"strings"
 	"time"
+
+	"github.com/ConfWatch/confwatchd/log"
 )
 
 const (
@@ -19,7 +21,9 @@ const (
 type Edition struct {
 	Slugable
 	EventID uint
-	Type    int `json:"type" gorm:"index"`
+
+	SharedAt time.Time `json:"-" gorm:"index"`
+	Type     int       `json:"type" gorm:"index"`
 
 	Description string `json:"description" gorm:"not null;type:text"`
 	Website     string `json:"website"`
@@ -40,6 +44,17 @@ type Edition struct {
 
 func Editions() (editions []Edition) {
 	db.Find(&editions)
+	return
+}
+
+func FirstEditionToShare(minDays int) (found bool, edition Edition) {
+	err := db.Where("ends > ? and (shared_at = '0001-01-01 00:00:00+00:00' or julianday('now') - julianday(shared_at) < ?)", time.Now(), minDays).Order("shared_at ASC").First(&edition).Error
+	if err != nil {
+		found = false
+		log.Errorf("Error while getting sharable edition: %s.", err)
+	} else {
+		found = true
+	}
 	return
 }
 

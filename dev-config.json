@@ -8,5 +8,12 @@
     "db": {
         "type": "sqlite3",
         "connection": "dev.db"
+    }, 
+    "twitter": {
+        "enabled": true,
+	    "consumer_key": "",
+	    "consumer_secret": "",
+	    "access_token": "",
+	    "access_secret": ""
     }
 }

@@ -19,11 +19,17 @@ import (
 var err error
 var db *gorm.DB
 
+func Save(m interface{}) error {
+	return db.Save(m).Error
+}
+
 func Setup(c config.DatabaseConfig) error {
 	db, err = gorm.Open(c.Type, c.Connection)
 	if err != nil {
 		return err
 	}
+
+	// db.LogMode(true)
 
 	db.AutoMigrate(&Event{})
 	db.AutoMigrate(&EventCategory{})

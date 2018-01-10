@@ -13,11 +13,18 @@
         <meta name="keywords" content="{{ .Keywords }}">
       {{ end }}
 
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:site" content="@confwatchninja">
+      <meta name="twitter:title" content="{{ .Title }}">
+      <meta name="twitter:description" content="{{ .Description }}">
+      <meta name="twitter:creator" content="@confwatchninja">
+      <meta name="twitter:image" content="https://confwatch.ninja/img/avatar.png"> 
+
       <meta property="og:title" content="{{ .Title }}" />
-      <meta property="og:site_name" content="{{ .Title }}" />
-      <meta property="og:image" content="https://confwatch.ninja/img/avatar.png" />
+      <meta property="og:site_name" content="ConfWatch.Ninja" />
       <meta property="og:description" content="{{ .Description }}" />
       <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://confwatch.ninja/img/avatar.png" />
     {{ end }}
 
     <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
