@@ -2,6 +2,7 @@ package jobs
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/ConfWatch/confwatchd/config"
@@ -68,6 +69,13 @@ func StartTwitterBot() error {
 				}
 
 				if msg != "" {
+					for _, tag := range strings.Split(edition.Tags, ",") {
+						tag = strings.Trim(tag, "\r\t\n ")
+						if tag != "" {
+							msg += fmt.Sprintf(" #%s", tag)
+						}
+					}
+
 					log.Infof("Tweeting: %s", log.Dim(msg))
 					_, _, err := client.Statuses.Update(msg, nil)
 					if err != nil {

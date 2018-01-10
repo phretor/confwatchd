@@ -10,7 +10,7 @@
         "connection": "dev.db"
     }, 
     "twitter": {
-        "enabled": true,
+        "enabled": false,
 	    "consumer_key": "",
 	    "consumer_secret": "",
 	    "access_token": "",
